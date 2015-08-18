@@ -1,0 +1,62 @@
+diff --git a/cf_og_tags.php b/cf_og_tags.php
+deleted file mode 100644
+index 6b64d5b..0000000
+--- a/cf_og_tags.php
++++ /dev/null
+@@ -1,55 +0,0 @@
+-<?php
+-
+-/**
+- * Implements hook_help().
+- */
+-function cf_og_tags_help($path, $arg) {
+-  switch ($path) {
+-    case "admin/help#cf_og_tags":
+-      $output  = '<h3>' . t('Usage') . '</h3>';
+-      $output .= '<p>' . t('Make sure this module is enabled for proper meta tag settings on EmpoweredBy CF Project Pages.') . '</p>';
+-      return $output;
+-      break;
+-  }
+-}
+-
+-/**
+- * Implements hook_page_alter().
+- *
+- * If cf parameters are in url, request to cf api and
+- * add "og:" meta tags to page head.
+- */
+-function cf_og_tags_page_alter(&$page) {
+-
+-  $params = drupal_get_query_parameters();
+-
+-  if (is_array($params)
+-    && isset($params['cfpage']) && $params['cfpage'] == 'project'
+-    && ($project_id = $params['project_id']) && !empty($params['project_id'])) {
+-
+-    // drupal_http_request() does not support protocol relative urls.
+-    if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
+-      $protocol = 'https://';
+-    }
+-    else {
+-      $protocol = 'http://';
+-    }
+-    $response = drupal_http_request($protocol . 'campaigns.communityfunded.com/ebcf_ogtags.php?project_id=' . $project_id);
+-
+-    $data = drupal_json_decode($response->data);
+-
+-    if (is_array($data)) {
+-      foreach ($data as $tag => $content) {
+-        // Generate array of og tags with proper project content.
+-        $og_meta_tag = array(
+-          '#tag' => 'meta',
+-          '#attributes' => array(
+-            'property' => 'og:' . trim($tag),
+-            'content' => trim($content),
+-          ),
+-        );
+-        drupal_add_html_head($og_meta_tag, 'og:' . trim($tag), true);
+-      }
+-    }
+-  }
+-}
+\ No newline at end of file
