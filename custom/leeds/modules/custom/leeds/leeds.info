@@ -1,9 +1,0 @@
-name = Leeds
-description = Custom module for Leeds
-core = 7.x
-package = Leeds
-
-dependencies[] = metatag
-dependencies[] = metatag_ui
-dependencies[] = metatag_context
-dependencies[] = token
