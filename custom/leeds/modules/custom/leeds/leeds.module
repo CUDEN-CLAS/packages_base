@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implements hook_secure_permissions().
+ */
+function leeds_secure_permissions($role) {
+  $permissions = array(
+    'administrator' => array(
+      'administer meta tags',
+      'edit meta tags',
+    ),
+    'developer' => array(
+      'administer meta tags',
+      'edit meta tags',
+    ),
+    'site_owner' => array(
+      'administer meta tags',
+      'edit meta tags',
+    ),
+  );
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
