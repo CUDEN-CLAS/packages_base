@@ -1,24 +1,24 @@
-[submodule "packages/custom/webcentral"]
-	path = packages/custom/webcentral
+[submodule "custom/webcentral"]
+	path = custom/webcentral
 	url = git@github.com:CuBoulder/express_webcentral.git
-[submodule "packages/custom/alumni"]
-	path = packages/custom/alumni
+[submodule "custom/alumni"]
+	path = custom/alumni
 	url = git@github.com:CuBoulder/express_alumni.git
-[submodule "packages/custom/homepage"]
-	path = packages/custom/homepage
+[submodule "custom/homepage"]
+	path = custom/homepage
 	url = git@github.com:CuBoulder/express_homepage.git
-[submodule "packages/custom/chancellor"]
-	path = packages/custom/chancellor
+[submodule "custom/chancellor"]
+	path = custom/chancellor
 	url = git@github.com:CuBoulder/express_chancellor.git
-[submodule "packages/custom/artmuseum"]
-	path = packages/custom/artmuseum
+[submodule "custom/artmuseum"]
+	path = custom/artmuseum
 	url = git@github.com:CuBoulder/express_artmuseum.git
-[submodule "packages/custom/crowdfunding"]
-	path = packages/custom/crowdfunding
+[submodule "custom/crowdfunding"]
+	path = custom/crowdfunding
 	url = git@github.com:CuBoulder/express_crowdfunding.git
-[submodule "packages/custom/leeds"]
-	path = packages/custom/leeds
+[submodule "custom/leeds"]
+	path = custom/leeds
 	url = git@github.com:CuBoulder/express_leeds.git
-[submodule "packages/custom/instaar"]
-	path = packages/custom/instaar
+[submodule "custom/instaar"]
+	path = custom/instaar
 	url = git@github.com:CuBoulder/express_instaar.git
