@@ -22,3 +22,6 @@
 [submodule "custom/instaar"]
 	path = custom/instaar
 	url = git@github.com:CuBoulder/express_instaar.git
+[submodule "custom/culibraries"]
+	path = custom/culibraries
+	url = git@github.com:CuBoulder/express_culibraries.git
