@@ -25,3 +25,6 @@
 [submodule "custom/culibraries"]
 	path = custom/culibraries
 	url = git@github.com:CuBoulder/express_culibraries.git
+[submodule "custom/cu_newsletter_bundle"]
+	path = custom/cu_newsletter_bundle
+	url = git@github.com:kreynen/cu_newsletter_bundle.git
