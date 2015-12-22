@@ -29,5 +29,5 @@
 	path = custom/cu_newsletter_bundle
 	url = git@github.com:CuBoulder/cu_newsletter_bundle.git
 [submodule "custom/cu_classes_bundle"]
-	path = cu_classes_bundle
+	path = custom/cu_classes_bundle
 	url = git@github.com:CuBoulder/cu_classes_bundle.git
