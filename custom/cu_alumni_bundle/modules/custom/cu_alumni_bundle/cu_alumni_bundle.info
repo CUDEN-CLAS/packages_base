@@ -1,0 +1,11 @@
+name = Alumni
+description = Class Notes for Alumni.
+core = 7.x
+package = CU-Alumni
+project = cu_alumni_bundle
+dependencies[] = cu_class_notes
+dependencies[] = ctools
+dependencies[] = list
+dependencies[] = options
+dependencies[] = strongarm
+dependencies[] = text
