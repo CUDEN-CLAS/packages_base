@@ -12,7 +12,7 @@ function cu_alumni_bundle_secure_permissions($role) {
     'authenticated user' => array(
     ),
     'administrator' => array(
-      'create any class_note content',
+      'create class_note content',
       'delete any class_note content',
       'delete own class_note content',
       'edit any class_note content',
@@ -20,7 +20,7 @@ function cu_alumni_bundle_secure_permissions($role) {
       'view any class_note content',
     ),
     'content_editor' => array(
-      'create any class_note content',
+      'create class_note content',
       'delete any class_note content',
       'delete own class_note content',
       'edit any class_note content',
@@ -28,7 +28,7 @@ function cu_alumni_bundle_secure_permissions($role) {
       'view any class_note content',
     ),
     'developer' => array(
-      'create any class_note content',
+      'create class_note content',
       'delete any class_note content',
       'delete own class_note content',
       'edit any class_note content',
@@ -36,7 +36,7 @@ function cu_alumni_bundle_secure_permissions($role) {
       'view any class_note content',
     ),
     'site_owner' => array(
-      'create any class_note content',
+      'create class_note content',
       'delete any class_note content',
       'delete own class_note content',
       'edit any class_note content',
