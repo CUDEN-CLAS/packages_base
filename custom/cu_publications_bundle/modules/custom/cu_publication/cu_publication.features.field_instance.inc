@@ -11,7 +11,7 @@ function cu_publication_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'field_collection_item-field_issue_section-field_issue_section_articles'
+  // 'field_collection_item-field_issue_section-field_issue_section_articles'.
   $field_instances['field_collection_item-field_issue_section-field_issue_section_articles'] = array(
     'bundle' => 'field_issue_section',
     'default_value' => NULL,
@@ -48,7 +48,7 @@ function cu_publication_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_issue_section-field_issue_section_display'
+  // 'field_collection_item-field_issue_section-field_issue_section_display'.
   $field_instances['field_collection_item-field_issue_section-field_issue_section_display'] = array(
     'bundle' => 'field_issue_section',
     'default_value' => array(
@@ -87,7 +87,7 @@ function cu_publication_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_issue_section-field_issue_section_title'
+  // 'field_collection_item-field_issue_section-field_issue_section_title'.
   $field_instances['field_collection_item-field_issue_section-field_issue_section_title'] = array(
     'bundle' => 'field_issue_section',
     'default_value' => NULL,
@@ -122,7 +122,7 @@ function cu_publication_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-issue-body'
+  // Exported field_instance: 'node-issue-body'.
   $field_instances['node-issue-body'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -134,7 +134,7 @@ function cu_publication_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'grid' => array(
         'label' => 'hidden',
@@ -168,11 +168,11 @@ function cu_publication_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 31,
+      'weight' => 3,
     ),
   );
 
-  // Exported field_instance: 'node-issue-field_issue_image'
+  // Exported field_instance: 'node-issue-field_issue_image'.
   $field_instances['node-issue-field_issue_image'] = array(
     'bundle' => 'issue',
     'deleted' => 0,
@@ -208,7 +208,7 @@ function cu_publication_field_default_field_instances() {
     'entity_type' => 'node',
     'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_issue_image',
-    'label' => 'Issue Image',
+    'label' => 'Issue Cover Image',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -232,6 +232,7 @@ function cu_publication_field_default_field_instances() {
         'insert_styles' => array(
           'auto' => 'auto',
           'colorbox__backstretch' => 0,
+          'colorbox__el_hero' => 0,
           'colorbox__flexslider_full' => 0,
           'colorbox__flexslider_thumbnail' => 0,
           'colorbox__focal_point_preview' => 0,
@@ -244,12 +245,13 @@ function cu_publication_field_default_field_instances() {
           'colorbox__large' => 0,
           'colorbox__large_square_thumbnail' => 0,
           'colorbox__large_wide_thumbnail' => 0,
+          'colorbox__linkit_thumb' => 0,
           'colorbox__medium' => 0,
           'colorbox__preview' => 0,
           'colorbox__slider' => 0,
           'colorbox__slider-large' => 0,
           'colorbox__small' => 0,
-          'colorbox__small_square' => 0,
+          'colorbox__small_square_thumbnail' => 0,
           'colorbox__small_thumbnail' => 0,
           'colorbox__square' => 0,
           'colorbox__square_thumbnail' => 0,
@@ -257,6 +259,7 @@ function cu_publication_field_default_field_instances() {
           'icon_link' => 0,
           'image' => 0,
           'image_backstretch' => 0,
+          'image_el_hero' => 0,
           'image_flexslider_full' => 0,
           'image_flexslider_thumbnail' => 0,
           'image_focal_point_preview' => 0,
@@ -269,12 +272,13 @@ function cu_publication_field_default_field_instances() {
           'image_large' => 0,
           'image_large_square_thumbnail' => 0,
           'image_large_wide_thumbnail' => 0,
+          'image_linkit_thumb' => 0,
           'image_medium' => 0,
           'image_preview' => 0,
           'image_slider' => 0,
           'image_slider-large' => 0,
           'image_small' => 0,
-          'image_small_square' => 0,
+          'image_small_square_thumbnail' => 0,
           'image_small_thumbnail' => 0,
           'image_square' => 0,
           'image_square_thumbnail' => 0,
@@ -286,11 +290,125 @@ function cu_publication_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 42,
+      'weight' => 6,
     ),
   );
 
-  // Exported field_instance: 'node-issue-field_issue_section'
+  // Exported field_instance: 'node-issue-field_issue_image_insert'.
+  $field_instances['node-issue-field_issue_image_insert'] = array(
+    'bundle' => 'issue',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
+      'grid' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_issue_image_insert',
+    'label' => 'Image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'file_directory' => 'issue-image-insert',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'image_medium',
+        'insert_styles' => array(
+          'auto' => 0,
+          'colorbox__backstretch' => 0,
+          'colorbox__el_hero' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__focal_point_preview' => 0,
+          'colorbox__grid-3' => 0,
+          'colorbox__grid-4' => 0,
+          'colorbox__grid-6' => 0,
+          'colorbox__grid-9' => 0,
+          'colorbox__grid-12' => 0,
+          'colorbox__hero' => 0,
+          'colorbox__large' => 0,
+          'colorbox__large_square_thumbnail' => 0,
+          'colorbox__large_wide_thumbnail' => 0,
+          'colorbox__linkit_thumb' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__preview' => 0,
+          'colorbox__slider' => 0,
+          'colorbox__slider-large' => 0,
+          'colorbox__small' => 'colorbox__small',
+          'colorbox__small_square_thumbnail' => 'colorbox__small_square_thumbnail',
+          'colorbox__small_thumbnail' => 'colorbox__small_thumbnail',
+          'colorbox__square' => 'colorbox__square',
+          'colorbox__square_thumbnail' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 'image',
+          'image_backstretch' => 0,
+          'image_el_hero' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_focal_point_preview' => 0,
+          'image_grid-3' => 0,
+          'image_grid-4' => 0,
+          'image_grid-6' => 0,
+          'image_grid-9' => 0,
+          'image_grid-12' => 0,
+          'image_hero' => 0,
+          'image_large' => 'image_large',
+          'image_large_square_thumbnail' => 'image_large_square_thumbnail',
+          'image_large_wide_thumbnail' => 'image_large_wide_thumbnail',
+          'image_linkit_thumb' => 0,
+          'image_medium' => 'image_medium',
+          'image_preview' => 0,
+          'image_slider' => 'image_slider',
+          'image_slider-large' => 0,
+          'image_small' => 'image_small',
+          'image_small_square_thumbnail' => 0,
+          'image_small_thumbnail' => 'image_small_thumbnail',
+          'image_square' => 'image_square',
+          'image_square_thumbnail' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-issue-field_issue_section'.
   $field_instances['node-issue-field_issue_section'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -304,7 +422,7 @@ function cu_publication_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'grid' => array(
         'label' => 'hidden',
@@ -332,7 +450,7 @@ function cu_publication_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 41,
+      'weight' => 5,
     ),
   );
 
@@ -341,7 +459,8 @@ function cu_publication_field_default_field_instances() {
   t('Articles');
   t('Body');
   t('Display');
-  t('Issue Image');
+  t('Image');
+  t('Issue Cover Image');
   t('Section');
   t('Section Title');
 
