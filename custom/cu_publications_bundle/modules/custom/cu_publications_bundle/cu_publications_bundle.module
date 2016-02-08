@@ -12,7 +12,7 @@ function cu_publications_bundle_secure_permissions($role) {
     'authenticated user' => array(
     ),
     'administrator' => array(
-      'create any issue content',
+      'create issue content',
       'delete any issue content',
       'delete own issue content',
       'edit any issue content',
@@ -20,7 +20,7 @@ function cu_publications_bundle_secure_permissions($role) {
       'view any issue content',
     ),
     'content_editor' => array(
-      'create any issue content',
+      'create issue content',
       'delete any issue content',
       'delete own issue content',
       'edit any issue content',
@@ -28,7 +28,7 @@ function cu_publications_bundle_secure_permissions($role) {
       'view any issue content',
     ),
     'developer' => array(
-      'create any issue content',
+      'create issue content',
       'delete any issue content',
       'delete own issue content',
       'edit any issue content',
@@ -36,7 +36,7 @@ function cu_publications_bundle_secure_permissions($role) {
       'view any issue content',
     ),
     'site_owner' => array(
-      'create any issue content',
+      'create issue content',
       'delete any issue content',
       'delete own issue content',
       'edit any issue content',
