@@ -308,7 +308,6 @@ function cu_class_notes_archive_year($year1, $year2) {
     '#tags' => array(),
     '#weight' => 100.
   );
-  dpm($output);
   return $output;
 }
 
@@ -407,7 +406,6 @@ function cu_class_notes_filter_form($form, &$form_state, $order) {
  * Submit function for cu_class_notes_filter_form().
  */
 function cu_classnotes_form_filter_submit($form, $form_state) {
-  dpm($form_state['values']);
   if (!empty($form_state['values']['year'])) {
     $year = $form_state['values']['year'];
     drupal_goto('classnotes/year/' . $year);
