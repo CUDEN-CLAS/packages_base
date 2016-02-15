@@ -30,7 +30,7 @@ h2.field-name-field-issue-section-title {
     //@include zen-grid-container();
     //margin:0 -20px;
   }
-  .issue-notes {
+  .issue-cover-image {
      //@include zen-grid-item(1,1);
      img {
        width:100%;
@@ -45,6 +45,9 @@ h2.field-name-field-issue-section-title {
 
 @media all and (max-width: 719px) {
   .issue-notes {
+    border-bottom:1px solid #e7e7e7;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
     $zen-column-count:  2;
     //@include zen-grid-container();
     //margin-right:-20px;
@@ -55,6 +58,7 @@ h2.field-name-field-issue-section-title {
     }
     .issue-notes-content {
       //@include zen-grid-item(1,2);
+      //font-size: 85%;
     }
   }
 }
