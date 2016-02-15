@@ -470,16 +470,20 @@ function cu_publication_block_view($delta = '') {
         // Get categories from current article
         $category_terms = $node->field_article_categories[LANGUAGE_NONE];
         $categories = array();
-        foreach ($category_terms as $category_term) {
-          $tid = $category_term['tid'];
-          $categories[$tid] = $tid;
+        if (!empty($category_terms)) {
+          foreach ($category_terms as $category_term) {
+            $tid = $category_term['tid'];
+            $categories[$tid] = $tid;
+          }
         }
         // Get tags from current article
         $tag_terms = $node->field_tags[LANGUAGE_NONE];
         $tags = array();
-        foreach ($tag_terms as $tag_term) {
-          $tid = $tag_term['tid'];
-          $tags[$tid] = $tid;
+        if (!empty($tag_terms)) {
+          foreach ($tag_terms as $tag_term) {
+            $tid = $tag_term['tid'];
+            $tags[$tid] = $tid;
+          }
         }
         // Start queries
         // Categories + Tags = most related
@@ -565,7 +569,7 @@ function cu_publication_block_view($delta = '') {
           $top_related = array_slice($related_articles, 0, 3, TRUE);
           $nodes = node_load_multiple($top_related);
           $block['content']['articles'] = node_view_multiple($nodes, 'grid');
-
+          unset($block['content']['articles']['nodes']['#sorted']);
           foreach($block['content']['articles']['nodes'] as $key => $node) {
             $block['content']['articles']['nodes'][$key]['#prefix'] = '<div class="related-article col-lg-4 col-md-4 col-sm-4 col-xs-12">';
             $block['content']['articles']['nodes'][$key]['#suffix'] = '</div>';
