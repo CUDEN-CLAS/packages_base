@@ -85,17 +85,18 @@ function cu_class_notes_menu() {
 /**
  * Title callback function.
  */
-function cu_class_notes_archive_year_title($year1, $year2) {
+function cu_class_notes_archive_year_title($year1 = NULL, $year2 = NULL) {
   // Make sure values are numeric
-  if (intval($year1)) {
+  if (is_numeric($year1)) {
     $parts = array();
-    $parts[] = 'Class Notes for';
-    $parts[] = intval($year1);
-    if (isset($year2) && intval($year2)) {
+    $prefix = 'Notes from the Class of ';
+    $parts[] = $year1;
+    if (isset($year2) && is_numeric($year2)) {
+      $prefix = 'Notes from the Classes of ';
       $parts[] = '-';
-      $parts[] = intval($year2);
+      $parts[] = $year2;
     }
-    $title = join(' ', $parts);
+    $title = $prefix . join('', $parts);
   } else {
     $title = 'Class Notes';
   }
@@ -129,7 +130,7 @@ function cu_class_notes_archive() {
   $nids = $query->execute()->fetchCol();
   $nodes = node_load_multiple($nids);
   foreach ($nodes as $nid => $node) {
-    $output[] = cu_class_notes_node_output($node, $year1, $year2);
+    $output[] = cu_class_notes_node_output($node, $year1 = NULL, $year2 = NULL);
     $output['#sorted'] = TRUE;
   }
   $output['pager'] = array(
@@ -162,7 +163,7 @@ function cu_class_notes_archive_recent() {
   $nids = $query->execute()->fetchCol();
   $nodes = node_load_multiple($nids);
   foreach ($nodes as $nid => $node) {
-    $output[] = cu_class_notes_node_output($node, $year1, $year2);
+    $output[] = cu_class_notes_node_output($node, $year1 = NULL, $year2 = NULL);
     $output['#sorted'] = TRUE;
   }
   $output['pager'] = array(
@@ -271,7 +272,7 @@ function cu_class_notes_archive_added_year($date1, $date2, $year1, $year2) {
  * Callback function for classnotes/year/%.
  * Show class notes for a given year.
  */
-function cu_class_notes_archive_year($year1, $year2) {
+function cu_class_notes_archive_year($year1 = NULL, $year2 = NULL) {
   $output = array();
   // Start query.
   $query = db_select('node', 'n');
@@ -300,7 +301,7 @@ function cu_class_notes_archive_year($year1, $year2) {
     return $output;
   }
   foreach ($nodes as $nid => $node) {
-    $output[] = cu_class_notes_node_output($node, $year1, $year2);
+    $output[] = cu_class_notes_node_output($node, $year1, $year2 = NULL);
     $output['#sorted'] = TRUE;
   }
   $output['pager'] = array(
@@ -322,7 +323,7 @@ function cu_class_notes_node_output($node, $year1, $year2) {
   $field = field_get_items('node', $node, 'field_class_note_class_year');
   $year = field_view_value('node', $node, 'field_class_note_class_year', $field[0]);
   // Build note output
-
+  $nid = $node->nid;
   // Don't show year if the list of notes is filtered to a single year.
   if (isset($year2) || (!isset($year1) && !isset($year2))) {
     $output[$nid]['year']['#markup'] = l($year['#markup'], 'classnotes/year/' . $year['#markup']);
