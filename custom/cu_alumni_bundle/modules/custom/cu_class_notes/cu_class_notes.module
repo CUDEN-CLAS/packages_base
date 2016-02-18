@@ -87,13 +87,13 @@ function cu_class_notes_menu() {
  */
 function cu_class_notes_archive_year_title($year1, $year2) {
   // Make sure values are numeric
-  if (is_numeric($year1)) {
-    $parts= array();
+  if (intval($year1)) {
+    $parts = array();
     $parts[] = 'Class Notes for';
-    $parts[] = $year1;
-    if (isset($year2) && is_numeric($year2)) {
+    $parts[] = intval($year1);
+    if (isset($year2) && intval($year2)) {
       $parts[] = '-';
-      $parts[] = $year2;
+      $parts[] = intval($year2);
     }
     $title = join(' ', $parts);
   } else {
