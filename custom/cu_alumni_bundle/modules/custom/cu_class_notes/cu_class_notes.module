@@ -71,13 +71,11 @@ function cu_class_notes_menu() {
   );
   // Class notes filtered by class year range
   // classnotes/years/YYYY/YYYY
-  $items['classnotes/years/%/%'] = array(
+  $items['classnotes/years'] = array(
     'access callback' => TRUE,
     'title' => 'Class Notes',
     'page callback' => 'cu_class_notes_archive_year',
-    'page arguments' => array(2,3),
     'title callback' => 'cu_class_notes_archive_year_title',
-    'title arguments' => array(2,3),
   );
   return $items;
 }
@@ -85,7 +83,10 @@ function cu_class_notes_menu() {
 /**
  * Title callback function.
  */
-function cu_class_notes_archive_year_title($year1 = NULL, $year2 = NULL) {
+function cu_class_notes_archive_year_title($arg2, $arg3) {
+  $year1 = $arg2;
+  $year2 = $arg3;
+
   // Make sure values are numeric
   if (is_numeric($year1)) {
     $parts = array();
@@ -272,7 +273,10 @@ function cu_class_notes_archive_added_year($date1, $date2, $year1, $year2) {
  * Callback function for classnotes/year/%.
  * Show class notes for a given year.
  */
-function cu_class_notes_archive_year($year1 = NULL, $year2 = NULL) {
+function cu_class_notes_archive_year($arg2, $arg3) {
+  $year1 = $arg2;
+  $year2 = $arg3;
+
   $output = array();
   // Start query.
   $query = db_select('node', 'n');
