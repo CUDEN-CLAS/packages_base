@@ -83,16 +83,16 @@ function cu_class_notes_menu() {
 /**
  * Title callback function.
  */
-function cu_class_notes_archive_year_title($arg2, $arg3) {
-  $year1 = $arg2;
-  $year2 = $arg3;
+function cu_class_notes_archive_year_title($arg2 = NULL, $arg3 = NULL) {
+  $year1 =(int) $arg2;
+  $year2 =(int) $arg3;
 
   // Make sure values are numeric
-  if (is_numeric($year1)) {
+  if ($year1) {
     $parts = array();
     $prefix = 'Notes from the Class of ';
     $parts[] = $year1;
-    if (isset($year2) && is_numeric($year2)) {
+    if ($year2) {
       $prefix = 'Notes from the Classes of ';
       $parts[] = '-';
       $parts[] = $year2;
@@ -208,7 +208,7 @@ function cu_class_notes_archive_added($date1, $date2) {
   $nids = $query->execute()->fetchCol();
   $nodes = node_load_multiple($nids);
   foreach ($nodes as $nid => $node) {
-    $output[] = cu_class_notes_node_output($node, $year1, $year2);
+    $output[] = cu_class_notes_node_output($node, $year1 = NULL, $year2 = NULL);
     $output['#sorted'] = TRUE;
   }
   $output['pager'] = array(
@@ -223,13 +223,16 @@ function cu_class_notes_archive_added($date1, $date2) {
  * Callback function for classnotes/recent.
  * Show class notes by recently added.
  */
-function cu_class_notes_archive_added_year($date1, $date2, $year1, $year2) {
+function cu_class_notes_archive_added_year($date1, $date2, $year_arg_1 = NULL, $year_arg_2 = NULL) {
   $output = array();
 
   // Convert dates
   $dates = array();
   $dates[] = strtotime($date1);
   $dates[] = strtotime($date2);
+
+  $year1 =(int) $year_arg_1;
+  $year2 =(int) $year_arg_2;
 
   // Start query.
   $query = db_select('node', 'n');
@@ -241,7 +244,7 @@ function cu_class_notes_archive_added_year($date1, $date2, $year1, $year2) {
   // Join class year field
   $query->join("field_data_field_class_note_class_year", "year", "n.nid = year.entity_id");
   $query->fields('year', array('field_class_note_class_year_value'));
-  if (isset($year2)) {
+  if ($year2) {
     $years = array();
     $years[] = $year1;
     $years[] = $year2;
@@ -273,10 +276,9 @@ function cu_class_notes_archive_added_year($date1, $date2, $year1, $year2) {
  * Callback function for classnotes/year/%.
  * Show class notes for a given year.
  */
-function cu_class_notes_archive_year($arg2, $arg3) {
-  $year1 = $arg2;
-  $year2 = $arg3;
-
+function cu_class_notes_archive_year($arg2 = NULL, $arg3 = NULL) {
+  $year1 =(int) $arg2;
+  $year2 =(int) $arg3;
   $output = array();
   // Start query.
   $query = db_select('node', 'n');
@@ -288,7 +290,7 @@ function cu_class_notes_archive_year($arg2, $arg3) {
   // Join class year field
   $query->join("field_data_field_class_note_class_year", "year", "n.nid = year.entity_id");
   $query->fields('year', array('field_class_note_class_year_value'));
-  if (isset($year2)) {
+  if ($year2) {
     $years = array();
     $years[] = $year1;
     $years[] = $year2;
