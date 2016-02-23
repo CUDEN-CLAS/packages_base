@@ -181,6 +181,10 @@ function cu_class_notes_archive_recent() {
 function cu_class_notes_archive_added($date1, $date2) {
   $output = array();
 
+  // Class year filter form.
+  $output['filter'] = drupal_get_form('cu_class_notes_filter_form', 'class');
+  $output['filter']['#weight'] = -100;
+
   // Convert dates
   $dates = array();
   $dates[] = strtotime($date1);
@@ -224,6 +228,10 @@ function cu_class_notes_archive_added($date1, $date2) {
  */
 function cu_class_notes_archive_added_year($date1, $date2, $year1, $year2) {
   $output = array();
+
+  // Class year filter form.
+  $output['filter'] = drupal_get_form('cu_class_notes_filter_form', 'class');
+  $output['filter']['#weight'] = -100;
 
   // Convert dates
   $dates = array();
@@ -274,6 +282,11 @@ function cu_class_notes_archive_added_year($date1, $date2, $year1, $year2) {
  */
 function cu_class_notes_archive_year($year1 = NULL, $year2 = NULL) {
   $output = array();
+
+  // Class year filter form.
+  $output['filter'] = drupal_get_form('cu_class_notes_filter_form', 'class');
+  $output['filter']['#weight'] = -100;
+  
   // Start query.
   $query = db_select('node', 'n');
   $query = $query->extend('PagerDefault')->limit(20);
