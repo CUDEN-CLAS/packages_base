@@ -41,13 +41,13 @@ function cu_publication_strongarm() {
         'custom_settings' => FALSE,
       ),
       'sidebar' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'table' => array(
         'custom_settings' => FALSE,
       ),
       'title' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'grid' => array(
         'custom_settings' => TRUE,
@@ -59,7 +59,7 @@ function cu_publication_strongarm() {
         'custom_settings' => FALSE,
       ),
       'embed' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
     ),
     'extra_fields' => array(
