@@ -3,58 +3,60 @@
 /**
  * Implements hook_menu().
  */
-function cu_livechat_bundle_menu() {
-  $items['admin/settings/livechat'] = array(
-    'title' => 'LiveChat',
-    'description' => 'Menu Options Related to LiveChat',
-    'position' => 'right',
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer express settings'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-    'weight' => 1,
-  );
-  $items['admin/settings/livechat/configuration'] = array(
-    'title' => 'Livechat',
-    'description' => 'Configure the license for your Livechat license',
-    'type' => MENU_NORMAL_ITEM,
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('cu_livechat_bundle_admin_form'),
-    'access arguments' => array('administer express settings'),
-    'weight' => -50,
-  );
+ function cu_livechat_bundle_menu() {
+   $items['admin/settings/livechat'] = array(
+     'title' => 'LiveChat',
+     'description' => 'Menu Options Related to LiveChat',
+     'position' => 'right',
+     'page callback' => 'system_admin_menu_block_page',
+     'access arguments' => array('administer express settings'),
+     'file' => 'system.admin.inc',
+     'file path' => drupal_get_path('module', 'system'),
+     'weight' => 1,
+   );
+   $items['admin/settings/livechat/configuration'] = array(
+     'title' => 'Livechat',
+     'description' => 'Configure the license for your Livechat license',
+     'type' => MENU_NORMAL_ITEM,
+     'page callback' => 'drupal_get_form',
+     'page arguments' => array('cu_livechat_bundle_admin_form'),
+     'access arguments' => array('administer express settings'),
+     'weight' => -50,
+   );
 
-  return $items;
-}
+   return $items;
+ }
 
 /**
  * Preprocess html.
  */
 function cu_livechat_bundle_preprocess_html(&$vars) {
-  // Get livechat ID and build javascript
-  if ($livechat_license = variable_get('livechat_license_number', NULL)) {
-    $livechat = "var __lc = {}; __lc.license = " . $livechat_license . ";
-    (function() {
-      var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-      lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-    })();";
+  if ($plugin = context_get_plugin('reaction', 'livechat')) {
+    $livechat = $plugin->execute($vars);
+    if ($livechat && ($livechat_license = variable_get('livechat_license_number', NULL))) {
+      $livechat = "var __lc = {}; __lc.license = " . $livechat_license . ";
+      (function() {
+        var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+        lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+      })();";
 
-    if (!path_is_admin(current_path())) {
-      drupal_add_js($livechat, 'inline');
+      if (!path_is_admin(current_path())) {
+        drupal_add_js($livechat, 'inline');
+      }
+
+      // Keep livechat from displaying when printing.
+      drupal_add_css(
+        '#livechat-compact-container { display: none !important;}',
+        array(
+          'group' => CSS_THEME,
+          'type' => 'inline',
+          'media' => 'print',
+          'preprocess' => FALSE,
+          'weight' => '9999',
+        )
+      );
     }
-
-    // Keep livechat from displaying when printing.
-    drupal_add_css(
-      '#livechat-compact-container { display: none !important;}',
-      array(
-        'group' => CSS_THEME,
-        'type' => 'inline',
-        'media' => 'print',
-        'preprocess' => FALSE,
-        'weight' => '9999',
-      )
-    );
   }
 }
 
@@ -85,7 +87,7 @@ function cu_livechat_bundle_admin_form() {
 }
 
 /**
- * Validation handler for _cu_livechat_bundle_config_form.
+ * Validation handler for _cu_livechat_config_form.
  */
 function _cu_livechat_bundle_config_form_validate($form, &$form_state) {
   if (!is_numeric($form_state['values']['livechat_license_number']) && !empty($form_state['values']['livechat_license_number'])) {
@@ -94,3 +96,56 @@ function _cu_livechat_bundle_config_form_validate($form, &$form_state) {
   }
 }
 
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ * Notify CTools that we'll be using the plugin API with Context module.
+ */
+function cu_livechat_bundle_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && ($api == 'plugins' || $api == 'context')) {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Implements hook_context_plugins().
+ *
+ * CTools plugin API hook for Context.
+ *
+ * @return array
+ *   Config details for each reaction.
+ *
+ * @see hook_context_plugins()
+ */
+function cu_livechat_bundle_context_plugins() {
+  $plugins = array();
+
+  $plugins['context_reaction_livechat'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'cu_livechat_bundle') . '/plugins',
+      'file' => 'cu_livechat_bundle.inc',
+      'class' => 'context_reaction_livechat',
+      'parent' => 'context_reaction',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ *
+ * Registry hook for conditions & reactions.
+ *
+ * @see hook_context_registry()
+ */
+function cu_livechat_bundle_context_registry() {
+  return array(
+    'reactions' => array(
+      'livechat' => array(
+        'title' => t('LiveChat'),
+        'plugin' => 'context_reaction_livechat',
+      ),
+    ),
+  );
+}

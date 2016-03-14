@@ -3,3 +3,5 @@ description = Adds Livechatinc.com functionality.
 core = 7.x
 version = 7.x-1.0
 package = CU-LiveChat
+
+files[] = cu_livechat_bundle.context.inc
