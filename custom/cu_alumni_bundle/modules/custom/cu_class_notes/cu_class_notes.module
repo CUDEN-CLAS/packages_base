@@ -101,7 +101,7 @@ function cu_class_notes_archive_year_title($arg2 = NULL, $arg3 = NULL) {
   } else {
     $title = 'Class Notes';
   }
-  return $title;
+  drupal_set_title($title);
 }
 
 /**
