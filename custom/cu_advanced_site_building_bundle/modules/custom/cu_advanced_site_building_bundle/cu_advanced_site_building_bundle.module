@@ -1,0 +1,25 @@
+<?php
+
+/*
+ * Implements hook_secure_permissions
+ *
+ * Adding permissions for video reveal bean
+ */
+function cu_advanced_site_building_bundle_secure_permissions($role) {
+  $permissions = array(
+    'administrator' => array(
+      'access backup and migrate',
+      'perform backup',
+      'restore from backup',
+    ),
+    'developer' => array(
+      'access backup and migrate',
+      'perform backup',
+      'restore from backup',
+    ),
+  );
+
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
