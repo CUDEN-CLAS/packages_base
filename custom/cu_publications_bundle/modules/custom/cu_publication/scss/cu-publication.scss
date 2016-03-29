@@ -215,10 +215,19 @@ h3.current-issue-title {
   }
 }
 
+
 .related-articles .related-article {
   margin-bottom:20px;
   h3 {
     font-size: 100%;
     margin-bottom: 5px;
   }
+}
+
+// Issue teaser more links
+.issue-summary .more-link {
+  white-space: nowrap;
+}
+.issue-summary .more-link:before {
+  content: " ";
 }
