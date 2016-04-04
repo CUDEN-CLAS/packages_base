@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Implements hook_user_insert().
+ */
+function cu_demo_bundle_user_insert(&$edit, $account, $category) {
+
+  $role = user_role_load_by_name("site_owner");
+  user_multiple_role_edit(array($account->uid), 'add_role', $role->rid);
+
+}
+
+/**
+ * Implements hook_menu_alter.
+ */
+function cu_demo_bundle_menu_alter(&$items) {
+  if (!cu_users_check_user($user->name)) {
+    $items['admin/settings/bundles/list/confirm/%']['page callback'] = 'cu_demo_bundle_redirect';
+  }
+}
+
+/**
+ * Callback function for admin/settings/bundles/list/confirm/%
+ */
+function cu_demo_bundle_redirect() {
+  drupal_set_message('This site is in demo mode.  Most forms are read-only.', 'status');
+  return '';
+}
+
+/**
+ * Custom version of https://www.drupal.org/project/disable_all_forms
+ * Disable all form elements and invalidate submissions.
+ */
+function cu_demo_bundle_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  dsm($form_id);
+
+  if (cu_users_check_user($user->name) || $user->uid == 1) {
+    drupal_set_message('This site is in demo mode.  Most forms are read-only for non-staff users.', 'status');
+    return;
+  }
+
+ $exceptions = array('user_login', 'views_exposed_form', 'ctools_export_ui_list_form');
+ if (!in_array($form_id, $exceptions)) {
+    $form['#after_build'][] = '_cu_demo_bundle_recursive';
+    drupal_set_message('This site is in demo mode.  Most forms are read-only.', 'status');
+    if ($form_id !== 'views_exposed_form') {
+      $form['#validate'][] = '_cu_demo_bundle_invalidate';
+    }
+  }
+}
+
+function _cu_demo_bundle_recursive(&$element) {
+  foreach (element_children($element) as $name) {
+    $element[$name]['#attributes']['disabled'] = 'disabled';
+    _cu_demo_bundle_recursive($element[$name]);
+  }
+  return $element;
+}
+
+function _cu_demo_bundle_invalidate($form, $form_state) {
+  form_set_error('', t('This site is in demo mode.  Most forms are read-only.'));
+}
