@@ -34,8 +34,6 @@ function cu_demo_bundle_redirect() {
 function cu_demo_bundle_form_alter(&$form, &$form_state, $form_id) {
   global $user;
 
-  dsm($form_id);
-
   if (cu_users_check_user($user->name) || $user->uid == 1) {
     drupal_set_message('This site is in demo mode.  Most forms are read-only for non-staff users.', 'status');
     return;
