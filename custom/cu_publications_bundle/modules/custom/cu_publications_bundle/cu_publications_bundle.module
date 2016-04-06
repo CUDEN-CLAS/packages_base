@@ -49,3 +49,12 @@ function cu_publications_bundle_secure_permissions($role) {
     return $permissions[$role];
   }
 }
+
+/**
+ * Implements hook_menu_alter().
+ * TEMP - revert this back to allow anonymous users to access
+ */
+function cu_publications_bundle_menu_alter(&$items) {
+  // Restrict access to taxonomy term pages to authenticated users.
+  $items['taxonomy/term/%taxonomy_term']['access callback'] = TRUE;
+}
