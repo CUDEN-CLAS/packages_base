@@ -57,6 +57,4 @@ function cu_publications_bundle_secure_permissions($role) {
 function cu_publications_bundle_menu_alter(&$items) {
   // Restrict access to taxonomy term pages to authenticated users.
   $items['taxonomy/term/%taxonomy_term']['access callback'] = TRUE;
-  // Remove /node page from being accessed.
-  $items['node']['page callback'] = 'taxonomy_term_page';
 }
