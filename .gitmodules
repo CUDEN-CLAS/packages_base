@@ -37,6 +37,3 @@
 [submodule "custom/artsandsciences"]
 	path = custom/artsandsciences
 	url = git@github.com:CuBoulder/express_artsandsciences.git
-[submodule "custom/cu_classes_bundle-2a2"]
-	path = custom/cu_classes_bundle-2a2
-	url = git@github.com:CuBoulder/cu_classes_bundle.git

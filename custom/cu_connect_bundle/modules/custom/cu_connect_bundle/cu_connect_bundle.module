@@ -1,0 +1,18 @@
+<?php
+/**
+ * Implements hook_secure_permissions().
+ *
+ * Adding permissions
+ */
+function cu_connect_bundle_secure_permissions($role) {
+  $permissions = array(
+    'developer' => array(
+      'administer salesforce webform',
+    ),
+  );
+
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
+
