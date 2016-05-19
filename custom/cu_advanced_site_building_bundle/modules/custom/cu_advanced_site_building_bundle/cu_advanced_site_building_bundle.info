@@ -1,0 +1,7 @@
+name = Advanced Site Building
+description = More advanced tools used to build a site 
+core = 7.x
+package = CU-Advanced Site Building
+project = cu_advanced_site_building_bundle
+
+bundle_contrib_packages = backup_migrate,feeds
