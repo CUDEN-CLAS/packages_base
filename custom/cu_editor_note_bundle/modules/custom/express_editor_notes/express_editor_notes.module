@@ -229,7 +229,7 @@ function express_editor_notes_theme(&$existing, $type, $theme, $path) {
  *
  * Editor note add/edit form.
  */
-function express_editor_notes_form($form, $form_state, $note) {
+function express_editor_notes_form($form, $form_state, $note = NULL) {
   $form = array();
   // Add for existing entities
     $form['#entity']->id = isset($note) ? $note->id : '';
@@ -272,10 +272,11 @@ function express_editor_notes_form($form, $form_state, $note) {
     '#default_value' => $title,
     '#required' => TRUE,
   );
+  $body = isset($body['value']) ? $body['value'] : '';
   $form['editor_note_message'] = array(
     '#title' => 'Editor Note Message',
     '#type' => 'text_format',
-    '#default_value' => $body['value'],
+    '#default_value' => $body,
     '#required' => TRUE,
   );
   $form['editor_note_status'] = array(
@@ -316,7 +317,7 @@ function express_editor_notes_form($form, $form_state, $note) {
       '#value' => t('Delete'),
     );
   }
-  $form_state['redirect'] = check_plain($_GET['destination']);
+  $form_state['redirect'] = isset($_GET['destination']) ? check_plain($_GET['destination']) : NULL;
   // Add validation and submit functions
   $form['#submit'][] = 'express_editor_notes_form_submit';
   return $form;
@@ -377,7 +378,7 @@ function express_editor_notes_delete_submit($form, &$form_state) {
   drupal_set_message('Editor has been deleted.');
 }
 
-function express_editor_notes_form_cancel($form, $form_state) {
+function express_editor_notes_form_cancel($form, &$form_state) {
 
 }
 
