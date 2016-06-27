@@ -7,7 +7,6 @@ $query->condition('en.id', $output, '=');
 $note = $query->execute()->fetchObject();
 
 $path = !empty($note->node_id) ? 'node/' . $note->node_id : $note->path;
-dpm($note);
 $item = menu_get_item($path);
 print l($item['title'], $path);
 ?>
