@@ -44,9 +44,40 @@ function cu_advanced_article_field_group_info() {
   );
   $field_groups['group_advanced|node|article|form'] = $field_group;
 
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_syndication|node|article|form';
+  $field_group->group_name = 'group_syndication';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'article';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Syndication',
+    'weight' => '17',
+    'children' => array(
+      0 => 'field_adv_article_synd_unit',
+      1 => 'field_adv_article_synd_aud',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Syndication',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-syndication field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_syndication|node|article|form'] = $field_group;
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Advanced');
+  t('Syndication');
 
   return $field_groups;
 }
