@@ -47,6 +47,37 @@ function cu_advanced_article_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_legacy|node|article|form';
+  $field_group->group_name = 'group_legacy';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'article';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Legacy',
+    'weight' => '18',
+    'children' => array(
+      0 => 'field_legacy_topic',
+      1 => 'field_legacy_audience',
+      2 => 'field_legacy_college_school',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Legacy',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-legacy field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_legacy|node|article|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_syndication|node|article|form';
   $field_group->group_name = 'group_syndication';
   $field_group->entity_type = 'node';
@@ -77,6 +108,7 @@ function cu_advanced_article_field_group_info() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Advanced');
+  t('Legacy');
   t('Syndication');
 
   return $field_groups;
