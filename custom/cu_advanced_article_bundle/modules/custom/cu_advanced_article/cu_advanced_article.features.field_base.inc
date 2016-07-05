@@ -187,6 +187,25 @@ function cu_advanced_article_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_adv_article_highlights'.
+  $field_bases['field_adv_article_highlights'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_adv_article_highlights',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_long',
+  );
+
   // Exported field_base: 'field_adv_article_image'.
   $field_bases['field_adv_article_image'] = array(
     'active' => 1,

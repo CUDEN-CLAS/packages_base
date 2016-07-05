@@ -370,7 +370,7 @@ function cu_advanced_article_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -595,7 +595,83 @@ function cu_advanced_article_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 16,
+      'weight' => 17,
+    ),
+  );
+
+  // Exported field_instance: 'node-article-field_adv_article_highlights'.
+  $field_instances['node-article-field_adv_article_highlights'] = array(
+    'bundle' => 'article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 29,
+      ),
+      'embed' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'feature' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'grid' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'title' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_adv_article_highlights',
+    'label' => 'Highlights',
+    'required' => 0,
+    'settings' => array(
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 20,
     ),
   );
 
@@ -945,7 +1021,7 @@ function cu_advanced_article_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 20,
+      'weight' => 21,
     ),
   );
 
@@ -1171,7 +1247,7 @@ function cu_advanced_article_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 14,
+      'weight' => 15,
     ),
   );
 
@@ -1539,7 +1615,7 @@ function cu_advanced_article_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
@@ -1762,6 +1838,7 @@ function cu_advanced_article_field_default_field_instances() {
   t('Caption');
   t('Gallery Display');
   t('Gallery Weight');
+  t('Highlights');
   t('Image');
   t('Image Display');
   t('Image Weight');
