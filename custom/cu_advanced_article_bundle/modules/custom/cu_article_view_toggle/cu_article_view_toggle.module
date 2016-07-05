@@ -1,0 +1,70 @@
+<?php
+/**
+ * @file
+ * Code for the Article View Toggle feature.
+ */
+
+include_once 'cu_article_view_toggle.features.inc';
+
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * Let Drupal know that we've got templates in our module directory.
+ */
+function cu_article_view_toggle_theme_registry_alter(&$theme_registry) {
+  $module_path = drupal_get_path('module', 'cu_article_view_toggle');
+  $theme_registry_copy = $theme_registry;
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'bean', $module_path);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+  $hooks = array('bean');
+  foreach ($hooks as $h) {
+    if (isset($theme_registry[$h]['theme paths'])) {
+      $first_element = array_shift($theme_registry[$h]['theme paths']);
+      array_unshift($theme_registry[$h]['theme paths'], array_shift($theme_registry[$h]['theme paths']), $module_path);
+    }
+  }
+}
+
+/**
+ * Implements hook_secure_permissions().
+ *
+ * Adding permissions for newsletter
+ */
+function cu_article_view_toggle_secure_permissions($role) {
+  $permissions = array(
+    'anonymous user' => array(
+      'view any article_grid_list bean',
+    ),
+    'authenticated user' => array(
+      'view any article_grid_list bean',
+    ),
+    'administrator' => array(
+      'create any article_grid_list bean',
+      'delete any article_grid_list bean',
+      'edit any article_grid_list bean',
+      'view any article_grid_list bean',
+    ),
+    'content_editor' => array(
+      'create any article_grid_list bean',
+      'delete any article_grid_list bean',
+      'edit any article_grid_list bean',
+      'view any article_grid_list bean',
+    ),
+    'developer' => array(
+      'create any article_grid_list bean',
+      'delete any article_grid_list bean',
+      'edit any article_grid_list bean',
+      'view any article_grid_list bean',
+    ),
+    'site_owner' => array(
+      'create any article_grid_list bean',
+      'delete any article_grid_list bean',
+      'edit any article_grid_list bean',
+      'view any article_grid_list bean',
+    ),
+  );
+
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
