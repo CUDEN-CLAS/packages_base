@@ -30,6 +30,7 @@ function cu_advanced_article_field_group_info() {
       4 => 'field_adv_article_priority',
       5 => 'field_adv_article_image',
       6 => 'field_adv_article_highlights',
+      7 => 'field_adv_article_downloads',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
