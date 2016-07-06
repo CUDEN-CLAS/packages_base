@@ -18,6 +18,9 @@
   if (!empty($content['field_adv_article_gallery'])) {
     hide($content['field_adv_article_gallery']);
   }
+  if (!empty($content['field_adv_article_highlights'])) {
+    hide($content['field_adv_article_highlights']);
+  }
 
 ?>
 
@@ -36,7 +39,11 @@
   <?php endif; ?>
   <div class="advanced-article-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-
+    <?php
+      if (!empty($content['field_adv_article_highlights'])) {
+        print render($content['field_adv_article_highlights']);
+      }
+    ?>
 
 
     <?php if (!empty($content['body'])): ?>
