@@ -89,7 +89,7 @@ function cu_advanced_article_preprocess_node(&$vars) {
     // Load nodes layout entity
     $layout = entity_load_single('express_layout', $vars['nid']);
     // Check to see if one of the advanced fields has been used
-    if (!empty($vars['field_adv_article_audio']) || !empty($vars['field_adv_article_video']) || !empty($vars['field_adv_article_image']) || !empty($vars['field_adv_article_gallery']) || !empty($vars['field_adv_article_quote'])) {
+    if (!empty($vars['field_adv_article_audio']) || !empty($vars['field_adv_article_video']) || !empty($vars['field_adv_article_image']) || !empty($vars['field_adv_article_gallery']) || !empty($vars['field_adv_article_quote']) || !empty($vars['field_adv_article_highlights'])) {
       // Only add if the article is still in default layout mode
       $feature = 0;
       if ($vars['view_mode'] == 'full') {
