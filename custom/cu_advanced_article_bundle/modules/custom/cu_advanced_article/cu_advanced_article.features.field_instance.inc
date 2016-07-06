@@ -427,7 +427,7 @@ function cu_advanced_article_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'fences_wrapper' => 'div_div_div',
+    'fences_wrapper' => 'ul',
     'field_name' => 'field_adv_article_downloads',
     'label' => 'Downloads',
     'required' => 0,
