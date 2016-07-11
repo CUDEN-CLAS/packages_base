@@ -7,6 +7,229 @@
 include_once 'cu_article_view_toggle.features.inc';
 
 /**
+ * Implements hook_preprocess_entity().
+ *
+ * Prepare content for article view toggle beans
+ */
+function cu_article_view_toggle_preprocess_entity(&$vars) {
+  $entity_type = $vars['elements']['#entity_type'];
+  $bundle = $vars['elements']['#bundle'];
+  if ($vars['elements']['#bundle'] == 'article_grid_list') {
+
+    // Start query.
+    $query = db_select('node', 'n');
+    $query->condition('n.type', 'article', '=');
+    $query->condition('n.status', 1, '=');
+    $query->fields('n', array('nid', 'title', 'sticky'));
+    $query->range(0, 6);
+
+    // Filter by tag.
+    if (isset($vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE]) && empty($_GET['tags'])) {
+      $terms = array();
+      foreach ($vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE] as $key=>$value) {
+        $tid = $value['tid'];
+        $terms[$tid] = $tid;
+        // Look up children terms and add them to array
+        $v = taxonomy_vocabulary_machine_name_load('tags');
+        $children = taxonomy_get_tree($v->vid, $tid);
+        foreach ($children as $child) {
+          $terms[$child->tid] = $child->tid;
+        }
+      }
+      $query->join("field_data_field_tags", "tags", "n.nid = tags.entity_id");
+      $query->fields('tags', array('field_tags_tid'));
+      $query->condition('tags.field_tags_tid', $terms, 'in');
+    }
+    // Filter by exposed tag filter
+    elseif (!empty($_GET['tags'])) {
+      $terms = array();
+      $terms[$tid] = check_plain($_GET['tags']);
+      // Look up children terms and add them to array
+      $v = taxonomy_vocabulary_machine_name_load('tags');
+      $children = taxonomy_get_tree($v->vid, $tid);
+      foreach ($children as $child) {
+        $terms[$child->tid] = $child->tid;
+      }
+      $query->join("field_data_field_tags", "tags", "n.nid = tags.entity_id");
+      $query->fields('tags', array('field_tags_tid'));
+      $query->condition('tags.field_tags_tid', $terms, 'in');
+    }
+
+    // Filter by category.
+    if (isset($vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE]) && empty($_GET['category'])) {
+      $terms = array();
+      foreach ($vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE] as $key=>$value) {
+        $tid = $value['tid'];
+        $terms[$tid] = $tid;
+        // Look up children terms and add them to array
+        $v = taxonomy_vocabulary_machine_name_load('category');
+        $children = taxonomy_get_tree($v->vid, $tid);
+        foreach ($children as $child) {
+          $terms[$child->tid] = $child->tid;
+        }
+      }
+      $query->join("field_data_field_article_categories", "cats", "n.nid = cats.entity_id");
+      $query->fields('cats', array('field_article_categories_tid'));
+      $query->condition('cats.field_article_categories_tid', $terms, 'in');
+    }
+    elseif (!empty($_GET['category'])) {
+      $terms = array();
+      $terms[$tid] = check_plain($_GET['category']);
+      // Look up children terms and add them to array
+      $v = taxonomy_vocabulary_machine_name_load('category');
+      $children = taxonomy_get_tree($v->vid, $tid);
+      foreach ($children as $child) {
+        $terms[$child->tid] = $child->tid;
+      }
+      $query->join("field_data_field_article_categories", "cats", "n.nid = cats.entity_id");
+      $query->fields('cats', array('field_article_categories_tid'));
+      $query->condition('cats.field_article_categories_tid', $terms, 'in');
+    }
+
+    $query->distinct();
+    $query->groupBy('n.nid');
+    // Display the newest first.
+    $query->orderBy('sticky', 'DESC');
+    $query->orderBy('created', 'DESC');
+    $nids = $query->execute()->fetchCol();
+    $nodes = node_load_multiple($nids);
+
+
+    if (!empty($nodes)) {
+      $rows = array();
+      // Pass a tag type to use for node titles - this is used in the article node tpl
+      foreach ($nodes as $key => $node) {
+        $nodes[$key]->heading_tag['#tag'] = 'h3';
+      }
+      $output['article_grid'] = node_view_multiple($nodes, 'grid');
+      foreach ($output['article_grid']['nodes'] as $nid => $node) {
+        $output['article_grid']['nodes'][$nid]['#prefix'] = '<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 article-grid-item">';
+        $output['article_grid']['nodes'][$nid]['#suffix'] = '</div>';
+      }
+      $output['article_list'] = node_view_multiple($nodes, 'teaser');
+
+      // More link
+      if (!empty($vars['elements']['#entity']->field_article_link[LANGUAGE_NONE][0]['url']) && !empty($vars['elements']['#entity']->field_article_link[LANGUAGE_NONE][0]['title'])) {
+        $output['more_link'] = array(
+          '#theme' => 'link',
+          '#path' => $vars['elements']['#entity']->field_article_link[LANGUAGE_NONE][0]['url'],
+          '#text' => $vars['elements']['#entity']->field_article_link[LANGUAGE_NONE][0]['title'],
+          '#options' => array('attributes' => array()),
+          '#prefix' => '<div class="more-link">',
+          '#suffix' => '</div>',
+        );
+      }
+
+      $variables= array(
+        'expose_category_filter' => TRUE,
+        'article_category_prefilter' => $vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE],
+        'expose_tag_filter' => TRUE,
+        'article_tag_prefilter' => $vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE],
+        'bid' => $vars['elements']['#entity']->bid,
+      );
+      $output['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
+      if (isset($output)) {
+        $vars['content'] = $output;
+      }
+    }
+  }
+}
+
+function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
+  $form = array();
+  $filters = array();
+  $filter_count = 0;
+  //$node = menu_get_object();
+  $show_category_filter = $vars['expose_category_filter'];
+  $show_tag_filter = $vars['expose_tag_filter'];
+
+  // Build category filter options
+  if ($show_category_filter) {
+    $filters['category']['name'] = 'Category';
+    $filters['category']['pre_filters'] = _cu_article_pre_filter_map( $vars['article_category_prefilter']);
+  }
+  // Build tag filter options
+  if ($show_tag_filter) {
+    $filters['tags']['name'] = 'Tag';
+    $filters['tags']['pre_filters'] = _cu_article_pre_filter_map( $vars['article_tag_prefilter']);
+  }
+  // Build filters if they exist
+  if (!empty($filters)) {
+    foreach ($filters as $key => $filter) {
+      // Load vocabulary for filter
+      $vocabulary = taxonomy_vocabulary_machine_name_load($key);
+      // Get terms for vocabulary
+      $terms = taxonomy_get_tree($vocabulary->vid);
+      $options = array();
+      // Add 'all' option
+      $options[] = 'All';
+      // Get terms in a nested tree
+      $terms = cu_article_taxonomy_treedata($terms);
+      // Build select options from nested tree and add all option
+      $options = $options + cu_article_nested_options($terms);
+
+      // If pre_filters were added, only show those options
+      if (!empty($filter['pre_filters'])) {
+        $options = array_intersect_key($options, $filter['pre_filters']);
+      }
+
+      // Only show filter if there are more than 2 choices (all + 2)
+      if (count($options) > 2) {
+        $filter_count++;
+        $form['article_list_filter'][$key] = array(
+         '#type' => 'select',
+         '#title' => t($filter['name']),
+         '#options' => $options,
+         '#default_value' => isset($_GET[$key]) ? $_GET[$key] : '',
+        );
+      }
+
+    }
+    $form['target_id'] = array(
+      '#type' => 'hidden',
+      '#value' => $vars['bid'],
+    );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => 'Filter',
+    );
+    $form['#submit'][] = 'cu_article_view_toggle_filter_form_submit';
+    $form['#prefix'] = '<div class="article-list-filter"><label class="element-invisible">Article Filter</label>';
+    $form['#suffix'] = '</div>';
+  }
+  // Return form if there is at least 1 exposed filter
+  if ($filter_count) {
+    return $form;
+  }
+}
+
+/**
+ * Submit handler for people list filter form.
+ */
+function cu_article_view_toggle_filter_form_submit($form, &$form_state) {
+  // Get current node
+  $node = menu_get_object();
+  // Get the nid
+  $nid = $node->nid;
+  // Get filters if they were submitted
+  foreach (array('tags', 'category') as $name) {
+    if (!empty($form_state['values'][$name])) {
+      $keys[$name] = $form_state['values'][$name];
+    }
+  }
+
+  // Build new url with filter parameters
+  $options = array();
+  if (isset($keys)) {
+    $options['query'] = $keys;
+  }
+  // adding fragment to anchor user to where block is on page
+  $options['fragment'] = 'article-toggle-' . $form_state['values']['target_id'];
+  $form_state['redirect'] = array('node/' . $nid, $options);
+  return;
+}
+
+/**
  * Implements hook_theme_registry_alter().
  *
  * Let Drupal know that we've got templates in our module directory.
