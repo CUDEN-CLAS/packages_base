@@ -46,8 +46,8 @@ function cu_article_view_toggle_field_default_field_instances() {
       'enable_tokens' => 1,
       'linkit' => array(
         'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
+        'enable' => 1,
+        'profile' => 'express_linkit_field_profile',
       ),
       'rel_remove' => 'default',
       'title' => 'optional',

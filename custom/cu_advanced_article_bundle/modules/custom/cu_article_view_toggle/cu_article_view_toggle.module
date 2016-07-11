@@ -132,6 +132,9 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
         $vars['content'] = $output;
       }
     }
+    else {
+      $vars['content'] = array();
+    }
   }
 }
 

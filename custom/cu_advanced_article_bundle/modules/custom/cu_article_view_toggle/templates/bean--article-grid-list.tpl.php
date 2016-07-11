@@ -29,4 +29,9 @@
       print render($content['article_list']);
     ?>
   </div>
+  <div class="article-view-toggle-link">
+    <?php
+      print render($content['more_link']);
+    ?>
+  </div>
 </div>

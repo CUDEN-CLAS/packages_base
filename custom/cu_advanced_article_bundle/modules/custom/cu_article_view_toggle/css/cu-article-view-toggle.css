@@ -11,9 +11,9 @@
 
 .article-toggle-navigation a.active { color: #fff; background-color: #333; }
 
-.article-toggle-list .more-link { text-align: center; }
+.article-view-toggle-link .more-link { text-align: center; }
 
-.article-toggle-list .more-link a { display: inline-block; padding: 5px 10px; font-weight: 500; font-family: "Neue Helvetica W01", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #007bc8; border: 1px solid #007bc8; margin-bottom: 5px; -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0); -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0); box-shadow: 0 2px 5px rgba(0, 0, 0, 0); font-size: 100%; }
+.article-view-toggle-link .more-link a { display: inline-block; padding: 5px 10px; font-weight: 500; font-family: "Neue Helvetica W01", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #007bc8; border: 1px solid #007bc8; margin-bottom: 5px; -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0); -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0); box-shadow: 0 2px 5px rgba(0, 0, 0, 0); font-size: 100%; }
 
 .article-grid-item { margin-bottom: 20px; }
 
