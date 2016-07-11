@@ -1,6 +1,9 @@
+<?php
+  $filter_class = !empty($content['exposed_filter']) ? 'has-exposed-filter' : '';
+?>
 <div id="article-toggle-<?php print $bean->bid; ?>" class="article-grid-list">
-  <div class="article-grid-list-filter">
-    <div class="article-toggle-navigation" aria-hidden="true">
+  <div class="article-grid-list-filter clearfix <?php print $filter_class; ?>">
+    <div class="article-toggle-navigation clearfix" aria-hidden="true">
       <ul>
         <li>
           <a href="#article-toggle-grid-<?php print $bean->bid; ?>" class="article-toggle-grid-link" data-article-toggle-id="<?php print $bean->bid; ?>"><i class="fa fa-th" aria-hidden="true"></i> <span class="element-invisible">Grid</span></a>

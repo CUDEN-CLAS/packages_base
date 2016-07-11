@@ -121,13 +121,15 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
       }
 
       $variables= array(
-        'expose_category_filter' => TRUE,
+        'expose_category_filter' => $vars['elements']['#entity']->field_article_page_cat_expose[LANGUAGE_NONE][0]['value'],
         'article_category_prefilter' => $vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE],
-        'expose_tag_filter' => TRUE,
+        'expose_tag_filter' => $vars['elements']['#entity']->field_article_page_tag_expose[LANGUAGE_NONE][0]['value'],
         'article_tag_prefilter' => $vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE],
         'bid' => $vars['elements']['#entity']->bid,
       );
-      $output['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
+      if ($expose_tag_filter || $expose_category_filter) {
+        $output['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
+      }
       if (isset($output)) {
         $vars['content'] = $output;
       }
