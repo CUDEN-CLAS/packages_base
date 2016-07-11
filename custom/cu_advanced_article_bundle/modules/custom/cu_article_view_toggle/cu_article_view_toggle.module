@@ -114,7 +114,7 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
           '#theme' => 'link',
           '#path' => $vars['elements']['#entity']->field_article_link[LANGUAGE_NONE][0]['url'],
           '#text' => $vars['elements']['#entity']->field_article_link[LANGUAGE_NONE][0]['title'],
-          '#options' => array('attributes' => array()),
+          '#options' => array('attributes' => array('class' => array('button-ghost'))),
           '#prefix' => '<div class="more-link">',
           '#suffix' => '</div>',
         );
