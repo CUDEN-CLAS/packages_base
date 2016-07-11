@@ -18,6 +18,9 @@
   if (!empty($content['field_adv_article_gallery'])) {
     hide($content['field_adv_article_gallery']);
   }
+  if (!empty($content['field_adv_article_highlights'])) {
+    hide($content['field_adv_article_highlights']);
+  }
 ?>
 
 <?php $tag = isset($heading_tag['#tag']) ? $heading_tag['#tag'] : 'h2'; ?>

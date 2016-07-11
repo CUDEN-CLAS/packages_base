@@ -18,6 +18,9 @@
   if (!empty($content['field_adv_article_gallery'])) {
     hide($content['field_adv_article_gallery']);
   }
+  if (!empty($content['field_adv_article_highlights'])) {
+    hide($content['field_adv_article_highlights']);
+  }
 
 ?>
 
@@ -37,7 +40,11 @@
   <div class="advanced-article-content col-lg-8 col-md-8 col-sm-6 col-xs-12">
 
 
-
+    <?php
+      if (!empty($content['field_adv_article_highlights'])) {
+        print render($content['field_adv_article_highlights']);
+      }
+    ?>
 
     <?php if (!empty($content['body'])): ?>
       <?php $bodyimg = strpos($content['body'][0]['#markup'], '<img'); ?>
@@ -50,6 +57,7 @@
         <?php hide($content['field_image']); ?>
       <?php endif; ?>
     <?php endif; ?>
+
     <?php print render($content); ?>
     <?php print render($content_bottom); ?>
 
