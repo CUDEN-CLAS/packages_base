@@ -29,6 +29,8 @@ function cu_advanced_article_field_group_info() {
       3 => 'field_adv_article_gallery',
       4 => 'field_adv_article_priority',
       5 => 'field_adv_article_image',
+      6 => 'field_adv_article_highlights',
+      7 => 'field_adv_article_downloads',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -55,7 +57,7 @@ function cu_advanced_article_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Legacy',
-    'weight' => '18',
+    'weight' => '19',
     'children' => array(
       0 => 'field_legacy_topic',
       1 => 'field_legacy_audience',
@@ -86,7 +88,7 @@ function cu_advanced_article_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Syndication',
-    'weight' => '17',
+    'weight' => '18',
     'children' => array(
       0 => 'field_adv_article_synd_unit',
       1 => 'field_adv_article_synd_aud',
