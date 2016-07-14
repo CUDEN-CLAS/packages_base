@@ -91,6 +91,17 @@ function cu_news_imports_feeds_importer_default() {
             'unique' => FALSE,
             'language' => 'und',
           ),
+          8 => array(
+            'source' => 'photo_caption',
+            'target' => 'field_adv_article_image:field_adv_article_fc_caption',
+            'unique' => FALSE,
+            'language' => 'und',
+          ),
+          9 => array(
+            'source' => 'photo_uri',
+            'target' => 'field_adv_article_image:field_adv_article_fc_image:uri',
+            'unique' => FALSE,
+          ),
         ),
         'insert_new' => '1',
         'update_existing' => '2',
