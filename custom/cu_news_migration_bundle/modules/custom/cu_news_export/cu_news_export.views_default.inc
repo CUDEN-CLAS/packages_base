@@ -36,6 +36,10 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  /* Relationship: Content: Photo (field_photo_collection) */
+  $handler->display->display_options['relationships']['field_photo_collection_value']['id'] = 'field_photo_collection_value';
+  $handler->display->display_options['relationships']['field_photo_collection_value']['table'] = 'field_data_field_photo_collection';
+  $handler->display->display_options['relationships']['field_photo_collection_value']['field'] = 'field_photo_collection_value';
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -47,6 +51,8 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body_1']['id'] = 'body_1';
   $handler->display->display_options['fields']['body_1']['table'] = 'field_data_body';
@@ -131,19 +137,6 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['field_news_quotes']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_news_quotes']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_news_quotes']['field_api_classes'] = TRUE;
-  /* Field: Content: Photo */
-  $handler->display->display_options['fields']['field_photo_collection']['id'] = 'field_photo_collection';
-  $handler->display->display_options['fields']['field_photo_collection']['table'] = 'field_data_field_photo_collection';
-  $handler->display->display_options['fields']['field_photo_collection']['field'] = 'field_photo_collection';
-  $handler->display->display_options['fields']['field_photo_collection']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_photo_collection']['element_wrapper_type'] = '0';
-  $handler->display->display_options['fields']['field_photo_collection']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_photo_collection']['settings'] = array(
-    'view_mode' => 'full',
-  );
-  $handler->display->display_options['fields']['field_photo_collection']['delta_limit'] = '1';
-  $handler->display->display_options['fields']['field_photo_collection']['delta_offset'] = '0';
-  $handler->display->display_options['fields']['field_photo_collection']['field_api_classes'] = TRUE;
   /* Field: Content: Thumbnail */
   $handler->display->display_options['fields']['field_release_thumbnail']['id'] = 'field_release_thumbnail';
   $handler->display->display_options['fields']['field_release_thumbnail']['table'] = 'field_data_field_release_thumbnail';
@@ -152,7 +145,9 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['field_release_thumbnail']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_release_thumbnail']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_release_thumbnail']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_release_thumbnail']['type'] = 'image_url';
   $handler->display->display_options['fields']['field_release_thumbnail']['settings'] = array(
+    'url_type' => '3',
     'image_style' => '',
     'image_link' => '',
   );
@@ -162,7 +157,6 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = 'body';
-  $handler->display->display_options['fields']['body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['body']['element_type'] = '0';
   $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['body']['element_wrapper_type'] = '0';
@@ -174,6 +168,33 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['authname']['field'] = 'authname';
   $handler->display->display_options['fields']['authname']['relationship'] = 'uid';
   $handler->display->display_options['fields']['authname']['label'] = 'username';
+  /* Field: Field collection item: Photo */
+  $handler->display->display_options['fields']['field_gallery_photo']['id'] = 'field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo']['table'] = 'field_data_field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo']['field'] = 'field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo']['relationship'] = 'field_photo_collection_value';
+  $handler->display->display_options['fields']['field_gallery_photo']['label'] = 'photo_uri';
+  $handler->display->display_options['fields']['field_gallery_photo']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_photo']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_photo']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_gallery_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_gallery_photo']['type'] = 'image_url';
+  $handler->display->display_options['fields']['field_gallery_photo']['settings'] = array(
+    'url_type' => '3',
+    'image_style' => '',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_gallery_photo']['field_api_classes'] = TRUE;
+  /* Field: Field collection item: Caption */
+  $handler->display->display_options['fields']['field_gallery_caption']['id'] = 'field_gallery_caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['table'] = 'field_data_field_gallery_caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['field'] = 'field_gallery_caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['relationship'] = 'field_photo_collection_value';
+  $handler->display->display_options['fields']['field_gallery_caption']['label'] = 'photo_caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_caption']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_caption']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_gallery_caption']['field_api_classes'] = TRUE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -197,6 +218,8 @@ function cu_news_export_views_default_views() {
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
   $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '100';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
   $handler->display->display_options['style_options']['parent_sort'] = 0;
@@ -205,7 +228,7 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
   $handler->display->display_options['style_options']['newline_token'] = '1';
   $handler->display->display_options['style_options']['header'] = 1;
-  $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['style_options']['keep_html'] = 1;
   $handler->display->display_options['path'] = 'article-export';
   $export['article_export'] = $view;
 
@@ -326,6 +349,129 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['style_options']['keep_html'] = 0;
   $handler->display->display_options['path'] = 'audio-export';
   $export['audio_export'] = $view;
+
+  $view = new view();
+  $view->name = 'file_collections_export';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'field_collection_item';
+  $view->human_name = 'file-collections-export';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'file-collections-export';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_gallery_caption' => 'field_gallery_caption',
+    'field_gallery_photo' => 'field_gallery_photo',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_gallery_caption' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_gallery_photo' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  /* Relationship: Field collection item: Entity with the Photo (field_photo_collection) */
+  $handler->display->display_options['relationships']['field_photo_collection_node']['id'] = 'field_photo_collection_node';
+  $handler->display->display_options['relationships']['field_photo_collection_node']['table'] = 'field_collection_item';
+  $handler->display->display_options['relationships']['field_photo_collection_node']['field'] = 'field_photo_collection_node';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'field_photo_collection_node';
+  $handler->display->display_options['fields']['nid']['label'] = 'nid';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_photo_collection_node';
+  $handler->display->display_options['fields']['title']['label'] = 'title';
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: Field collection item: Caption */
+  $handler->display->display_options['fields']['field_gallery_caption']['id'] = 'field_gallery_caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['table'] = 'field_data_field_gallery_caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['field'] = 'field_gallery_caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['label'] = 'caption';
+  $handler->display->display_options['fields']['field_gallery_caption']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_caption']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_caption']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_gallery_caption']['field_api_classes'] = TRUE;
+  /* Field: Field collection item: Photo */
+  $handler->display->display_options['fields']['field_gallery_photo']['id'] = 'field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo']['table'] = 'field_data_field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo']['field'] = 'field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo']['label'] = 'file_path';
+  $handler->display->display_options['fields']['field_gallery_photo']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_photo']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_gallery_photo']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_gallery_photo']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_gallery_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_gallery_photo']['type'] = 'image_url';
+  $handler->display->display_options['fields']['field_gallery_photo']['settings'] = array(
+    'url_type' => '2',
+    'image_style' => '',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_gallery_photo']['field_api_classes'] = TRUE;
+  /* Field: Field collection item: Photo */
+  $handler->display->display_options['fields']['field_gallery_photo_1']['id'] = 'field_gallery_photo_1';
+  $handler->display->display_options['fields']['field_gallery_photo_1']['table'] = 'field_data_field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo_1']['field'] = 'field_gallery_photo';
+  $handler->display->display_options['fields']['field_gallery_photo_1']['label'] = 'uri';
+  $handler->display->display_options['fields']['field_gallery_photo_1']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_gallery_photo_1']['type'] = 'image_url';
+  $handler->display->display_options['fields']['field_gallery_photo_1']['settings'] = array(
+    'url_type' => '3',
+    'image_style' => '',
+    'image_link' => '',
+  );
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['relationship'] = 'field_photo_collection_node';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'feature_article' => 'feature_article',
+    'news_release' => 'news_release',
+  );
+
+  /* Display: Data export */
+  $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
+  $handler->display->display_options['path'] = 'file-collection-export';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'file-collection-export-test';
+  $export['file_collections_export'] = $view;
 
   return $export;
 }
