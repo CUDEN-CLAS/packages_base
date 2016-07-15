@@ -1,7 +1,7 @@
-name = CU News Export
+name = "CU News Export"
 description = "CSV Views and Display Modes"
 core = "7.x"
-package = CU-News
+package = "CU-News"
 php = "5.2.4"
 dependencies[] = "views"
 dependencies[] = "views_data_export"
@@ -9,4 +9,4 @@ features[ctools][] = "views:views_default:3.0"
 features[views_view][] = "article_export"
 features[views_view][] = "audio_export"
 features[views_view][] = "file_collections_export"
-mtime = "1468343020"
+mtime = "1468504284"
