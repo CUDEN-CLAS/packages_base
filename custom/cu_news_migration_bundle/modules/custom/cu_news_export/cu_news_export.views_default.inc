@@ -27,6 +27,7 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -44,6 +45,15 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  /* Field: Content: Photo (field_photo_collection:delta) */
+  $handler->display->display_options['fields']['delta']['id'] = 'delta';
+  $handler->display->display_options['fields']['delta']['table'] = 'field_data_field_photo_collection';
+  $handler->display->display_options['fields']['delta']['field'] = 'delta';
+  $handler->display->display_options['fields']['delta']['label'] = 'delta';
+  $handler->display->display_options['fields']['delta']['element_type'] = '0';
+  $handler->display->display_options['fields']['delta']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['delta']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['delta']['separator'] = '';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -174,6 +184,7 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['field_gallery_photo']['field'] = 'field_gallery_photo';
   $handler->display->display_options['fields']['field_gallery_photo']['relationship'] = 'field_photo_collection_value';
   $handler->display->display_options['fields']['field_gallery_photo']['label'] = 'photo_uri';
+  $handler->display->display_options['fields']['field_gallery_photo']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_gallery_photo']['element_type'] = '0';
   $handler->display->display_options['fields']['field_gallery_photo']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_gallery_photo']['element_default_classes'] = FALSE;
@@ -195,18 +206,102 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['fields']['field_gallery_caption']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_gallery_caption']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_gallery_caption']['field_api_classes'] = TRUE;
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'date';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+  /* Field: Field: Topic */
+  $handler->display->display_options['fields']['field_topic_1']['id'] = 'field_topic_1';
+  $handler->display->display_options['fields']['field_topic_1']['table'] = 'field_data_field_topic';
+  $handler->display->display_options['fields']['field_topic_1']['field'] = 'field_topic';
+  $handler->display->display_options['fields']['field_topic_1']['label'] = 'topic';
+  $handler->display->display_options['fields']['field_topic_1']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_topic_1']['type'] = 'taxonomy_term_reference_csv';
+  $handler->display->display_options['fields']['field_topic_1']['settings'] = array(
+    'links_option' => 0,
+    'separator_option' => ', ',
+    'element_option' => '- None -',
+    'element_class' => '',
+    'wrapper_option' => '- None -',
+    'wrapper_class' => '',
+  );
+  $handler->display->display_options['fields']['field_topic_1']['delta_offset'] = '0';
+  /* Field: Content: College or School */
+  $handler->display->display_options['fields']['field_college_terms']['id'] = 'field_college_terms';
+  $handler->display->display_options['fields']['field_college_terms']['table'] = 'field_data_field_college_terms';
+  $handler->display->display_options['fields']['field_college_terms']['field'] = 'field_college_terms';
+  $handler->display->display_options['fields']['field_college_terms']['label'] = 'school';
+  $handler->display->display_options['fields']['field_college_terms']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_college_terms']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_college_terms']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_college_terms']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_college_terms']['type'] = 'taxonomy_term_reference_csv';
+  $handler->display->display_options['fields']['field_college_terms']['settings'] = array(
+    'links_option' => 0,
+    'separator_option' => ', ',
+    'element_option' => '- None -',
+    'element_class' => '',
+    'wrapper_option' => '- None -',
+    'wrapper_class' => '',
+  );
+  $handler->display->display_options['fields']['field_college_terms']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_college_terms']['field_api_classes'] = TRUE;
+  /* Field: Field: Audience */
+  $handler->display->display_options['fields']['field_audience']['id'] = 'field_audience';
+  $handler->display->display_options['fields']['field_audience']['table'] = 'field_data_field_audience';
+  $handler->display->display_options['fields']['field_audience']['field'] = 'field_audience';
+  $handler->display->display_options['fields']['field_audience']['label'] = 'audience';
+  $handler->display->display_options['fields']['field_audience']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_audience']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_audience']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_audience']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_audience']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_audience']['type'] = 'taxonomy_term_reference_csv';
+  $handler->display->display_options['fields']['field_audience']['settings'] = array(
+    'links_option' => 0,
+    'separator_option' => ', ',
+    'element_option' => '- None -',
+    'element_class' => '',
+    'wrapper_option' => '- None -',
+    'wrapper_class' => '',
+  );
+  $handler->display->display_options['fields']['field_audience']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_audience']['field_api_classes'] = TRUE;
+  /* Field: Field: Topic */
+  $handler->display->display_options['fields']['field_topic_2']['id'] = 'field_topic_2';
+  $handler->display->display_options['fields']['field_topic_2']['table'] = 'field_data_field_topic';
+  $handler->display->display_options['fields']['field_topic_2']['field'] = 'field_topic';
+  $handler->display->display_options['fields']['field_topic_2']['label'] = 'legacy_topic';
+  $handler->display->display_options['fields']['field_topic_2']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_topic_2']['type'] = 'taxonomy_term_reference_csv';
+  $handler->display->display_options['fields']['field_topic_2']['settings'] = array(
+    'links_option' => 0,
+    'separator_option' => ', ',
+    'element_option' => '- None -',
+    'element_class' => '',
+    'wrapper_option' => '- None -',
+    'wrapper_class' => '',
+  );
+  $handler->display->display_options['fields']['field_topic_2']['delta_offset'] = '0';
+  /* Field: Content: Published */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'node';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['label'] = 'published';
+  $handler->display->display_options['fields']['status']['type'] = 'boolean';
+  $handler->display->display_options['fields']['status']['not'] = 0;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -214,11 +309,23 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'news_release' => 'news_release',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Photo (field_photo_collection:delta) */
+  $handler->display->display_options['filters']['delta_1']['id'] = 'delta_1';
+  $handler->display->display_options['filters']['delta_1']['table'] = 'field_data_field_photo_collection';
+  $handler->display->display_options['filters']['delta_1']['field'] = 'delta';
+  $handler->display->display_options['filters']['delta_1']['value']['value'] = '0';
+  $handler->display->display_options['filters']['delta_1']['group'] = 2;
+  /* Filter criterion: Content: Photo (field_photo_collection:delta) */
+  $handler->display->display_options['filters']['delta']['id'] = 'delta';
+  $handler->display->display_options['filters']['delta']['table'] = 'field_data_field_photo_collection';
+  $handler->display->display_options['filters']['delta']['field'] = 'delta';
+  $handler->display->display_options['filters']['delta']['operator'] = 'empty';
+  $handler->display->display_options['filters']['delta']['group'] = 2;
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '100';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
   $handler->display->display_options['style_options']['provide_file'] = 1;
@@ -230,6 +337,30 @@ function cu_news_export_views_default_views() {
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['style_options']['keep_html'] = 1;
   $handler->display->display_options['path'] = 'article-export';
+  $handler->display->display_options['use_batch'] = 'batch';
+  $handler->display->display_options['segment_size'] = '100';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'nid',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Result summary */
+  $handler->display->display_options['header']['result']['id'] = 'result';
+  $handler->display->display_options['header']['result']['table'] = 'views';
+  $handler->display->display_options['header']['result']['field'] = 'result';
+  $handler->display->display_options['path'] = 'article-export-preview';
   $export['article_export'] = $view;
 
   $view = new view();
