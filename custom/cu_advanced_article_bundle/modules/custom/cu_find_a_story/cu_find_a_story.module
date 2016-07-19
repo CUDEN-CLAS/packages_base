@@ -1,0 +1,86 @@
+<?php
+/**
+ * @file
+ * Code for the Find a Story feature.
+ */
+
+include_once 'cu_find_a_story.features.inc';
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function cu_find_a_story_theme_registry_alter(&$theme_registry) {
+  $module_path = drupal_get_path('module', 'cu_find_a_story');
+  $theme_registry_copy = $theme_registry;
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'cu_find_a_story', $module_path);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+  $hooks = array('cu_find_a_story');
+  foreach ($hooks as $h) {
+    if (isset($theme_registry[$h]['theme paths'])) {
+      $first_element = array_shift($theme_registry[$h]['theme paths']);
+      array_unshift($theme_registry[$h]['theme paths'], array_shift($theme_registry[$h]['theme paths']), $module_path);
+    }
+  }
+}
+
+function cu_find_a_story_form_views_exposed_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form['#id'] == 'views-exposed-form-find-a-story-page') {
+
+    // Hide tag and category multiple select fields
+    $form['field_article_categories_tid']['#prefix'] = '<div class="element-hidden">';
+    $form['field_article_categories_tid']['#suffix'] = '</div>';
+    $form['field_tags_tid']['#prefix'] = '<div class="element-hidden">';
+    $form['field_tags_tid']['#suffix'] = '</div>';
+
+    // Hide labels
+    unset($form['#info']['filter-field_article_categories_tid']);
+    unset($form['#info']['filter-field_tags_tid']);
+
+    // Add value callbacks to set hidden field values
+    $form['field_article_categories_tid']['#value_callback'] = 'cu_find_a_story_multi_category';
+    $form['field_tags_tid']['#value_callback'] = 'cu_find_a_story_multi_tag';
+  }
+}
+
+/**
+ * Value callback function for field_article_categories_tid.
+ *
+ * Set values based on submitted value of field_article_categories_tid_1.
+ */
+function cu_find_a_story_multi_category($element, $input = FALSE, $form_state) {
+
+  if ($form_state['values']['field_article_categories_tid_1'] != 'All') {
+    $v = taxonomy_vocabulary_machine_name_load('category');
+    $tid = $form_state['values']['field_article_categories_tid_1'];
+    $children = taxonomy_get_tree($v->vid, $tid);
+    $multi_categories = array();
+    $multi_categories[$tid] = $tid;
+    foreach ($children as $child) {
+      $multi_categories[$child->tid] = $child->tid;
+    }
+
+    return $multi_categories;
+  }
+}
+
+/**
+ * Value callback function for field_tags_tid.
+ *
+ * Set values based on submitted value of field_tags_tid_1.
+ */
+function cu_find_a_story_multi_tag($element, $input = FALSE, $form_state) {
+
+  if ($form_state['values']['field_tags_tid_1'] != 'All') {
+    $v = taxonomy_vocabulary_machine_name_load('category');
+    $tid = $form_state['values']['field_tags_tid_1'];
+    $children = taxonomy_get_tree($v->vid, $tid);
+    $multi_categories = array();
+    $multi_categories[$tid] = $tid;
+    foreach ($children as $child) {
+      $multi_categories[$child->tid] = $child->tid;
+    }
+
+    return $multi_categories;
+  }
+}
