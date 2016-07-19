@@ -28,6 +28,7 @@ function cu_find_a_story_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
@@ -93,7 +94,9 @@ function cu_find_a_story_views_default_views() {
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = '';
+  $handler->display->display_options['fields']['created']['element_type'] = '0';
   $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['created']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'U';
@@ -105,8 +108,9 @@ function cu_find_a_story_views_default_views() {
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
-    2 => 'AND',
-    3 => 'AND',
+    2 => 'OR',
+    3 => 'OR',
+    4 => 'OR',
   );
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -148,16 +152,41 @@ function cu_find_a_story_views_default_views() {
     'body' => 'body',
     'body_1' => 'body_1',
   );
-  /* Filter criterion: Content: Categories (field_article_categories) */
+  /* Filter criterion: Category Single */
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['id'] = 'field_article_categories_tid_1';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['table'] = 'field_data_field_article_categories';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['field'] = 'field_article_categories_tid';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['ui_name'] = 'Category Single';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['group'] = 2;
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['operator_id'] = 'field_article_categories_tid_1_op';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['label'] = 'Categories';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['operator'] = 'field_article_categories_tid_1_op';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['identifier'] = 'field_article_categories_tid_1';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    4 => 0,
+    7 => 0,
+    3 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['type'] = 'select';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['vocabulary'] = 'category';
+  $handler->display->display_options['filters']['field_article_categories_tid_1']['hierarchy'] = 1;
+  /* Filter criterion: Categories Multi */
   $handler->display->display_options['filters']['field_article_categories_tid']['id'] = 'field_article_categories_tid';
   $handler->display->display_options['filters']['field_article_categories_tid']['table'] = 'field_data_field_article_categories';
   $handler->display->display_options['filters']['field_article_categories_tid']['field'] = 'field_article_categories_tid';
+  $handler->display->display_options['filters']['field_article_categories_tid']['ui_name'] = 'Categories Multi';
   $handler->display->display_options['filters']['field_article_categories_tid']['group'] = 2;
   $handler->display->display_options['filters']['field_article_categories_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_article_categories_tid']['expose']['operator_id'] = 'field_article_categories_tid_op';
   $handler->display->display_options['filters']['field_article_categories_tid']['expose']['label'] = 'Categories';
   $handler->display->display_options['filters']['field_article_categories_tid']['expose']['operator'] = 'field_article_categories_tid_op';
   $handler->display->display_options['filters']['field_article_categories_tid']['expose']['identifier'] = 'field_article_categories_tid';
+  $handler->display->display_options['filters']['field_article_categories_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_article_categories_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
@@ -170,16 +199,41 @@ function cu_find_a_story_views_default_views() {
   $handler->display->display_options['filters']['field_article_categories_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_article_categories_tid']['vocabulary'] = 'category';
   $handler->display->display_options['filters']['field_article_categories_tid']['hierarchy'] = 1;
-  /* Filter criterion: Content: Tags (field_tags) */
+  /* Filter criterion: Tags Single */
+  $handler->display->display_options['filters']['field_tags_tid_1']['id'] = 'field_tags_tid_1';
+  $handler->display->display_options['filters']['field_tags_tid_1']['table'] = 'field_data_field_tags';
+  $handler->display->display_options['filters']['field_tags_tid_1']['field'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid_1']['ui_name'] = 'Tags Single';
+  $handler->display->display_options['filters']['field_tags_tid_1']['group'] = 4;
+  $handler->display->display_options['filters']['field_tags_tid_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['operator_id'] = 'field_tags_tid_1_op';
+  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['label'] = 'Tags';
+  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['operator'] = 'field_tags_tid_1_op';
+  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['identifier'] = 'field_tags_tid_1';
+  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    6 => 0,
+    4 => 0,
+    7 => 0,
+    3 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_tags_tid_1']['type'] = 'select';
+  $handler->display->display_options['filters']['field_tags_tid_1']['vocabulary'] = 'tags';
+  $handler->display->display_options['filters']['field_tags_tid_1']['hierarchy'] = 1;
+  /* Filter criterion: Tags Multi */
   $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
   $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
-  $handler->display->display_options['filters']['field_tags_tid']['group'] = 2;
+  $handler->display->display_options['filters']['field_tags_tid']['ui_name'] = 'Tags Multi';
+  $handler->display->display_options['filters']['field_tags_tid']['group'] = 4;
   $handler->display->display_options['filters']['field_tags_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_tags_tid']['expose']['operator_id'] = 'field_tags_tid_op';
   $handler->display->display_options['filters']['field_tags_tid']['expose']['label'] = 'Tags';
   $handler->display->display_options['filters']['field_tags_tid']['expose']['operator'] = 'field_tags_tid_op';
   $handler->display->display_options['filters']['field_tags_tid']['expose']['identifier'] = 'field_tags_tid';
+  $handler->display->display_options['filters']['field_tags_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_tags_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
