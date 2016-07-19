@@ -152,18 +152,18 @@ function cu_find_a_story_views_default_views() {
     'body' => 'body',
     'body_1' => 'body_1',
   );
-  /* Filter criterion: Category Single */
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['id'] = 'field_article_categories_tid_1';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['table'] = 'field_data_field_article_categories';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['field'] = 'field_article_categories_tid';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['ui_name'] = 'Category Single';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['group'] = 2;
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['operator_id'] = 'field_article_categories_tid_1_op';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['label'] = 'Categories';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['operator'] = 'field_article_categories_tid_1_op';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['identifier'] = 'field_article_categories_tid_1';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['expose']['remember_roles'] = array(
+  /* Filter criterion: Category Filter */
+  $handler->display->display_options['filters']['term_node_tid_depth']['id'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['table'] = 'node';
+  $handler->display->display_options['filters']['term_node_tid_depth']['field'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['ui_name'] = 'Category Filter';
+  $handler->display->display_options['filters']['term_node_tid_depth']['group'] = 2;
+  $handler->display->display_options['filters']['term_node_tid_depth']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator_id'] = 'term_node_tid_depth_op';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['operator'] = 'term_node_tid_depth_op';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['identifier'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     6 => 0,
@@ -172,22 +172,22 @@ function cu_find_a_story_views_default_views() {
     3 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['type'] = 'select';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['vocabulary'] = 'category';
-  $handler->display->display_options['filters']['field_article_categories_tid_1']['hierarchy'] = 1;
-  /* Filter criterion: Categories Multi */
-  $handler->display->display_options['filters']['field_article_categories_tid']['id'] = 'field_article_categories_tid';
-  $handler->display->display_options['filters']['field_article_categories_tid']['table'] = 'field_data_field_article_categories';
-  $handler->display->display_options['filters']['field_article_categories_tid']['field'] = 'field_article_categories_tid';
-  $handler->display->display_options['filters']['field_article_categories_tid']['ui_name'] = 'Categories Multi';
-  $handler->display->display_options['filters']['field_article_categories_tid']['group'] = 2;
-  $handler->display->display_options['filters']['field_article_categories_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_article_categories_tid']['expose']['operator_id'] = 'field_article_categories_tid_op';
-  $handler->display->display_options['filters']['field_article_categories_tid']['expose']['label'] = 'Categories';
-  $handler->display->display_options['filters']['field_article_categories_tid']['expose']['operator'] = 'field_article_categories_tid_op';
-  $handler->display->display_options['filters']['field_article_categories_tid']['expose']['identifier'] = 'field_article_categories_tid';
-  $handler->display->display_options['filters']['field_article_categories_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_article_categories_tid']['expose']['remember_roles'] = array(
+  $handler->display->display_options['filters']['term_node_tid_depth']['type'] = 'select';
+  $handler->display->display_options['filters']['term_node_tid_depth']['vocabulary'] = 'category';
+  $handler->display->display_options['filters']['term_node_tid_depth']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth']['depth'] = '10';
+  /* Filter criterion: Tags Filter */
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['id'] = 'term_node_tid_depth_1';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['table'] = 'node';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['field'] = 'term_node_tid_depth';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['ui_name'] = 'Tags Filter';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['group'] = 4;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['operator_id'] = 'term_node_tid_depth_1_op';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['label'] = 'Tags';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['operator'] = 'term_node_tid_depth_1_op';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['identifier'] = 'term_node_tid_depth_1';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     6 => 0,
@@ -196,56 +196,10 @@ function cu_find_a_story_views_default_views() {
     3 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['field_article_categories_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_article_categories_tid']['vocabulary'] = 'category';
-  $handler->display->display_options['filters']['field_article_categories_tid']['hierarchy'] = 1;
-  /* Filter criterion: Tags Single */
-  $handler->display->display_options['filters']['field_tags_tid_1']['id'] = 'field_tags_tid_1';
-  $handler->display->display_options['filters']['field_tags_tid_1']['table'] = 'field_data_field_tags';
-  $handler->display->display_options['filters']['field_tags_tid_1']['field'] = 'field_tags_tid';
-  $handler->display->display_options['filters']['field_tags_tid_1']['ui_name'] = 'Tags Single';
-  $handler->display->display_options['filters']['field_tags_tid_1']['group'] = 4;
-  $handler->display->display_options['filters']['field_tags_tid_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['operator_id'] = 'field_tags_tid_1_op';
-  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['label'] = 'Tags';
-  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['operator'] = 'field_tags_tid_1_op';
-  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['identifier'] = 'field_tags_tid_1';
-  $handler->display->display_options['filters']['field_tags_tid_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    6 => 0,
-    4 => 0,
-    7 => 0,
-    3 => 0,
-    5 => 0,
-  );
-  $handler->display->display_options['filters']['field_tags_tid_1']['type'] = 'select';
-  $handler->display->display_options['filters']['field_tags_tid_1']['vocabulary'] = 'tags';
-  $handler->display->display_options['filters']['field_tags_tid_1']['hierarchy'] = 1;
-  /* Filter criterion: Tags Multi */
-  $handler->display->display_options['filters']['field_tags_tid']['id'] = 'field_tags_tid';
-  $handler->display->display_options['filters']['field_tags_tid']['table'] = 'field_data_field_tags';
-  $handler->display->display_options['filters']['field_tags_tid']['field'] = 'field_tags_tid';
-  $handler->display->display_options['filters']['field_tags_tid']['ui_name'] = 'Tags Multi';
-  $handler->display->display_options['filters']['field_tags_tid']['group'] = 4;
-  $handler->display->display_options['filters']['field_tags_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator_id'] = 'field_tags_tid_op';
-  $handler->display->display_options['filters']['field_tags_tid']['expose']['label'] = 'Tags';
-  $handler->display->display_options['filters']['field_tags_tid']['expose']['operator'] = 'field_tags_tid_op';
-  $handler->display->display_options['filters']['field_tags_tid']['expose']['identifier'] = 'field_tags_tid';
-  $handler->display->display_options['filters']['field_tags_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_tags_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    6 => 0,
-    4 => 0,
-    7 => 0,
-    3 => 0,
-    5 => 0,
-  );
-  $handler->display->display_options['filters']['field_tags_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_tags_tid']['vocabulary'] = 'tags';
-  $handler->display->display_options['filters']['field_tags_tid']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['type'] = 'select';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['vocabulary'] = 'tags';
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth_1']['depth'] = '10';
   /* Filter criterion: Date: Date (node) */
   $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['table'] = 'node';
