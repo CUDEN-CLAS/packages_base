@@ -32,6 +32,9 @@
       print render($content['article_list']);
     ?>
   </div>
+  <?php
+    print render($content['error']);
+  ?>
   <div class="article-view-toggle-link">
     <?php
       print render($content['more_link']);

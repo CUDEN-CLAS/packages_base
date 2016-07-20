@@ -104,6 +104,22 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
       $query->condition('media.field_adv_article_media_tid', $terms, 'in');
     }
 
+    // Filter by audience.
+    if ($_GET['audience']) {
+      $terms = array();
+      $terms[$tid] = check_plain($_GET['audience']);
+      $tid = check_plain($_GET['audience']);
+      // Look up children terms and add them to array
+      $v = taxonomy_vocabulary_machine_name_load('audience');
+      $children = taxonomy_get_tree($v->vid, $tid);
+      foreach ($children as $child) {
+        $terms[$child->tid] = $child->tid;
+      }
+      $query->join("field_data_field_adv_article_synd_aud", "audience", "n.nid = audience.entity_id");
+      $query->fields('audience', array('field_adv_article_synd_aud_tid'));
+      $query->condition('audience.field_adv_article_synd_aud_tid', $terms, 'in');
+    }
+
     $query->distinct();
     $query->groupBy('n.nid');
     // Display the newest first.
@@ -137,23 +153,22 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
           '#suffix' => '</div>',
         );
       }
-
-      $variables = array(
-        'expose_category_filter' => $vars['elements']['#entity']->field_article_page_cat_expose[LANGUAGE_NONE][0]['value'],
-        'article_category_prefilter' => $vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE],
-        'expose_tag_filter' => $vars['elements']['#entity']->field_article_page_tag_expose[LANGUAGE_NONE][0]['value'],
-        'article_tag_prefilter' => $vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE],
-        'bid' => $vars['elements']['#entity']->bid,
-      );
-      if ($variables['expose_tag_filter'] || $variables['expose_category_filter']) {
-        $output['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
-      }
       if (isset($output)) {
         $vars['content'] = $output;
       }
     }
     else {
-      $vars['content'] = array();
+      $vars['content']['error']['#markup'] = variable_get('articles_no_results', 'There are no articles that match your search.');
+    }
+    $variables = array(
+      'expose_category_filter' => $vars['elements']['#entity']->field_article_page_cat_expose[LANGUAGE_NONE][0]['value'],
+      'article_category_prefilter' => $vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE],
+      'expose_tag_filter' => $vars['elements']['#entity']->field_article_page_tag_expose[LANGUAGE_NONE][0]['value'],
+      'article_tag_prefilter' => $vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE],
+      'bid' => $vars['elements']['#entity']->bid,
+    );
+    if ($variables['expose_tag_filter'] || $variables['expose_category_filter']) {
+      $vars['content']['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
     }
   }
 }
@@ -165,26 +180,36 @@ function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
   //$node = menu_get_object();
   $show_category_filter = $vars['expose_category_filter'];
   $show_tag_filter = $vars['expose_tag_filter'];
+
   $show_media_filter = 1;
+  $show_audience_filter = 1;
   // Build category filter options
   if ($show_category_filter) {
     $filters['category']['name'] = 'Category';
+    $filters['category']['vocabulary'] = 'category';
     $filters['category']['pre_filters'] = _cu_article_pre_filter_map( $vars['article_category_prefilter']);
   }
   // Build tag filter options
   if ($show_tag_filter) {
     $filters['tags']['name'] = 'Tag';
+    $filters['tags']['vocabulary'] = 'tags';
     $filters['tags']['pre_filters'] = _cu_article_pre_filter_map( $vars['article_tag_prefilter']);
   }
   // Build media filter options
   if ($show_media_filter) {
     $filters['media']['name'] = 'Media';
+    $filters['media']['vocabulary'] = 'media';
+  }
+  // Build audience filter options
+  if ($show_audience_filter) {
+    $filters['audience']['name'] = 'Audience';
+    $filters['audience']['vocabulary'] = 'syndication_audience';
   }
   // Build filters if they exist
   if (!empty($filters)) {
     foreach ($filters as $key => $filter) {
       // Load vocabulary for filter
-      $vocabulary = taxonomy_vocabulary_machine_name_load($key);
+      $vocabulary = taxonomy_vocabulary_machine_name_load($filter['vocabulary']);
       // Get terms for vocabulary
       $terms = taxonomy_get_tree($vocabulary->vid);
       $options = array();
@@ -239,7 +264,7 @@ function cu_article_view_toggle_filter_form_submit($form, &$form_state) {
   // Get the nid
   $nid = $node->nid;
   // Get filters if they were submitted
-  foreach (array('tags', 'category') as $name) {
+  foreach (array('tags', 'category', 'media', 'audience') as $name) {
     if (!empty($form_state['values'][$name])) {
       $keys[$name] = $form_state['values'][$name];
     }
