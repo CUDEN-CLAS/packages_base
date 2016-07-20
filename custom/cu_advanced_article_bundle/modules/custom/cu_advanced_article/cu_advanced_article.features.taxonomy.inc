@@ -33,6 +33,14 @@ function cu_advanced_article_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'media' => array(
+      'name' => 'Media',
+      'machine_name' => 'media',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'syndication_audience' => array(
       'name' => 'Syndication Audience',
       'machine_name' => 'syndication_audience',

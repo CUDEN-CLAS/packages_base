@@ -20,4 +20,6 @@ div.article-adv-content-field:last-child { border-bottom: none; }
 
 .field-name-field-adv-article-highlights { margin-bottom: 20px; border-bottom: 1px solid #d7d7d7; padding-bottom: 20px; font-size: 110%; }
 
-.field-name-field-adv-article-downloads { margin-bottom: 20px; border: 1px solid #d7d7d7; padding: 20px; }
+.field-name-field-adv-article-downloads { margin-bottom: 20px; border: 1px solid #d7d7d7; padding: 20px; list-style: none; list-style-image: none; }
+.field-name-field-adv-article-downloads li { list-style: none; list-style-image: none; padding: 0; margin: 0 0 10px; }
+.field-name-field-adv-article-downloads li:last-child { margin: 0; }
