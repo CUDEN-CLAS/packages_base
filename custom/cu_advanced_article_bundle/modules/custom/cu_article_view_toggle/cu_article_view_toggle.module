@@ -44,6 +44,7 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
     elseif (!empty($_GET['tags'])) {
       $terms = array();
       $terms[$tid] = check_plain($_GET['tags']);
+      $tid = check_plain($_GET['tags']);
       // Look up children terms and add them to array
       $v = taxonomy_vocabulary_machine_name_load('tags');
       $children = taxonomy_get_tree($v->vid, $tid);
@@ -75,6 +76,7 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
     elseif (!empty($_GET['category'])) {
       $terms = array();
       $terms[$tid] = check_plain($_GET['category']);
+      $tid = check_plain($_GET['category']);
       // Look up children terms and add them to array
       $v = taxonomy_vocabulary_machine_name_load('category');
       $children = taxonomy_get_tree($v->vid, $tid);
@@ -84,6 +86,22 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
       $query->join("field_data_field_article_categories", "cats", "n.nid = cats.entity_id");
       $query->fields('cats', array('field_article_categories_tid'));
       $query->condition('cats.field_article_categories_tid', $terms, 'in');
+    }
+
+    // Filter by media.
+    if ($_GET['media']) {
+      $terms = array();
+      $terms[$tid] = check_plain($_GET['media']);
+      $tid = check_plain($_GET['media']);
+      // Look up children terms and add them to array
+      $v = taxonomy_vocabulary_machine_name_load('media');
+      $children = taxonomy_get_tree($v->vid, $tid);
+      foreach ($children as $child) {
+        $terms[$child->tid] = $child->tid;
+      }
+      $query->join("field_data_field_adv_article_media", "media", "n.nid = media.entity_id");
+      $query->fields('media', array('field_adv_article_media_tid'));
+      $query->condition('media.field_adv_article_media_tid', $terms, 'in');
     }
 
     $query->distinct();
@@ -120,14 +138,14 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
         );
       }
 
-      $variables= array(
+      $variables = array(
         'expose_category_filter' => $vars['elements']['#entity']->field_article_page_cat_expose[LANGUAGE_NONE][0]['value'],
         'article_category_prefilter' => $vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE],
         'expose_tag_filter' => $vars['elements']['#entity']->field_article_page_tag_expose[LANGUAGE_NONE][0]['value'],
         'article_tag_prefilter' => $vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE],
         'bid' => $vars['elements']['#entity']->bid,
       );
-      if ($expose_tag_filter || $expose_category_filter) {
+      if ($variables['expose_tag_filter'] || $variables['expose_category_filter']) {
         $output['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
       }
       if (isset($output)) {
@@ -147,7 +165,7 @@ function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
   //$node = menu_get_object();
   $show_category_filter = $vars['expose_category_filter'];
   $show_tag_filter = $vars['expose_tag_filter'];
-
+  $show_media_filter = 1;
   // Build category filter options
   if ($show_category_filter) {
     $filters['category']['name'] = 'Category';
@@ -157,6 +175,10 @@ function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
   if ($show_tag_filter) {
     $filters['tags']['name'] = 'Tag';
     $filters['tags']['pre_filters'] = _cu_article_pre_filter_map( $vars['article_tag_prefilter']);
+  }
+  // Build media filter options
+  if ($show_media_filter) {
+    $filters['media']['name'] = 'Media';
   }
   // Build filters if they exist
   if (!empty($filters)) {
