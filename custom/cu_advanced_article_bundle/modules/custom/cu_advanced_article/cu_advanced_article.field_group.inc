@@ -31,6 +31,7 @@ function cu_advanced_article_field_group_info() {
       5 => 'field_adv_article_image',
       6 => 'field_adv_article_highlights',
       7 => 'field_adv_article_downloads',
+      8 => 'field_adv_article_media',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
