@@ -1,0 +1,169 @@
+<?php
+/**
+ * @file
+ * Code for the Advanced Article List Page feature.
+ */
+
+include_once 'cu_advanced_article_list_page.features.inc';
+
+function cu_advanced_article_list_page_preprocess_node(&$vars) {
+  if ($vars['node']->type == 'advanced_article_list_page') {
+    // Start query.
+    $query = db_select('node', 'n');
+    $query->condition('n.type', 'article', '=');
+    $query->condition('n.status', 1, '=');
+    $query->fields('n', array('nid', 'title', 'sticky'));
+    $query = $query->extend('PagerDefault')->limit(10);
+
+    // Filter by tag.
+    if ($_GET['tags']) {
+      $terms = array();
+      $terms[$tid] = check_plain($_GET['tags']);
+      $tid = check_plain($_GET['tags']);
+      // Look up children terms and add them to array
+      $v = taxonomy_vocabulary_machine_name_load('tags');
+      $children = taxonomy_get_tree($v->vid, $tid);
+      foreach ($children as $child) {
+        $terms[$child->tid] = $child->tid;
+      }
+      $query->join("field_data_field_tags", "tags", "n.nid = tags.entity_id");
+      $query->fields('tags', array('field_tags_tid'));
+      $query->condition('tags.field_tags_tid', $terms, 'in');
+    }
+
+    // Filter by category.
+    if ($_GET['category']) {
+      $terms = array();
+      $terms[$tid] = check_plain($_GET['category']);
+      $tid = check_plain($_GET['category']);
+      // Look up children terms and add them to array
+      $v = taxonomy_vocabulary_machine_name_load('category');
+      $children = taxonomy_get_tree($v->vid, $tid);
+      foreach ($children as $child) {
+        $terms[$child->tid] = $child->tid;
+      }
+      $query->join("field_data_field_article_categories", "cats", "n.nid = cats.entity_id");
+      $query->fields('cats', array('field_article_categories_tid'));
+      $query->condition('cats.field_article_categories_tid', $terms, 'in');
+    }
+
+    // Filter by media.
+    if ($_GET['media']) {
+      $terms = array();
+      $terms[$tid] = check_plain($_GET['media']);
+      $tid = check_plain($_GET['media']);
+      // Look up children terms and add them to array
+      $v = taxonomy_vocabulary_machine_name_load('media');
+      $children = taxonomy_get_tree($v->vid, $tid);
+      foreach ($children as $child) {
+        $terms[$child->tid] = $child->tid;
+      }
+      $query->join("field_data_field_adv_article_media", "media", "n.nid = media.entity_id");
+      $query->fields('media', array('field_adv_article_media_tid'));
+      $query->condition('media.field_adv_article_media_tid', $terms, 'in');
+    }
+
+    $query->distinct();
+    $query->groupBy('n.nid');
+    // Display the newest first.
+    $query->orderBy('sticky', 'DESC');
+    $query->orderBy('created', 'DESC');
+    $nids = $query->execute()->fetchCol();
+    $nodes = node_load_multiple($nids);
+
+
+    if (!empty($nodes)) {
+      $rows = array();
+      // Pass a tag type to use for node titles - this is used in the article node tpl
+      foreach ($nodes as $key => $node) {
+        $nodes[$key]->heading_tag['#tag'] = 'h2';
+      }
+      $output['article_list'] = node_view_multiple($nodes, 'teaser');
+      $output['article_list']['#weight'] = 10;
+
+      // Add exposed filter
+      $output['exposed_filter'] = drupal_get_form('cu_advanced_article_list_page_filter_form');
+      $output['exposed_filter']['#weight'] = 5;
+
+      $output['pager'] = array(
+          '#theme' => 'pager',
+          '#tags' => array(),
+          '#weight' => 100.
+    );
+
+      if (isset($output)) {
+        $vars['content'] = $output;
+      }
+    }
+    else {
+      $vars['content'] = array();
+    }
+  }
+}
+
+function cu_advanced_article_list_page_filter_form($form, &$form_state) {
+  $form = array();
+  $filters = array();
+  $filter_count = 0;
+  //$node = menu_get_object();
+  $show_category_filter = 1;
+  $show_tag_filter = 1;
+  $show_media_filter = 1;
+
+  // Build category filter options
+  if ($show_category_filter) {
+    $filters['category']['name'] = 'Category';
+  }
+  // Build tag filter options
+  if ($show_tag_filter) {
+    $filters['tags']['name'] = 'Tag';
+  }
+  // Build media filter options
+  if ($show_media_filter) {
+    $filters['media']['name'] = 'Media';
+  }
+  // Build filters if they exist
+  if (!empty($filters)) {
+    foreach ($filters as $key => $filter) {
+      // Load vocabulary for filter
+      $vocabulary = taxonomy_vocabulary_machine_name_load($key);
+      // Get terms for vocabulary
+      $terms = taxonomy_get_tree($vocabulary->vid);
+      $options = array();
+      // Add 'all' option
+      $options[] = 'All';
+      // Get terms in a nested tree
+      $terms = cu_article_taxonomy_treedata($terms);
+      // Build select options from nested tree and add all option
+      $options = $options + cu_article_nested_options($terms);
+      // If pre_filters were added, only show those options
+      if (!empty($filter['pre_filters'])) {
+        $options = array_intersect_key($options, $filter['pre_filters']);
+      }
+
+      // Only show filter if there are more than 2 choices (all + 2)
+      if (count($options) > 2) {
+        $filter_count++;
+        $form['article_list_filter'][$key] = array(
+         '#type' => 'select',
+         '#title' => t($filter['name']),
+         '#options' => $options,
+         '#default_value' => isset($_GET[$key]) ? $_GET[$key] : '',
+        );
+      }
+
+    }
+
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => 'Filter',
+    );
+    $form['#submit'][] = 'cu_article_view_toggle_filter_form_submit';
+    $form['#prefix'] = '<div class="article-list-filter"><label class="element-invisible">Article Filter</label>';
+    $form['#suffix'] = '</div>';
+  }
+  // Return form if there is at least 1 exposed filter
+  if ($filter_count) {
+    return $form;
+  }
+}
