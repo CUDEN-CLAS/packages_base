@@ -145,7 +145,7 @@ function cu_advanced_article_preprocess_node(&$vars) {
 }
 
 function _cu_advanced_article_error_msg($embed) {
-  drupal_set_message($embed . ' is not a valid soundcloud URL');
+  // drupal_set_message($embed . ' is not a valid soundcloud URL');
 }
 //article_node_form
 function cu_advanced_article_form_article_node_form_alter(&$form, &$form_state, $form_id) {
