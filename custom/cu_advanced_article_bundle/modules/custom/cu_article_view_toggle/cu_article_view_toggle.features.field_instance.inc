@@ -63,7 +63,7 @@ function cu_article_view_toggle_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 11,
+      'weight' => 10,
     ),
   );
 
@@ -102,7 +102,7 @@ function cu_article_view_toggle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -135,7 +135,7 @@ function cu_article_view_toggle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 8,
+      'weight' => 6,
     ),
   );
 
@@ -173,7 +173,7 @@ function cu_article_view_toggle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 5,
     ),
   );
 
@@ -205,7 +205,46 @@ function cu_article_view_toggle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 2,
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'bean-article_grid_list-field_article_page_childterms'.
+  $field_instances['bean-article_grid_list-field_article_page_childterms'] = array(
+    'bundle' => 'article_grid_list',
+    'default_value' => array(
+      0 => array(
+        'value' => 'all',
+      ),
+    ),
+    'default_value_function' => '',
+    'default_value_php' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_article_page_childterms',
+    'label' => 'Child Terms',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 9,
     ),
   );
 
@@ -269,7 +308,7 @@ function cu_article_view_toggle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -313,45 +352,6 @@ function cu_article_view_toggle_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'bean-article_grid_list-field_article_page_subcategories'.
-  $field_instances['bean-article_grid_list-field_article_page_subcategories'] = array(
-    'bundle' => 'article_grid_list',
-    'default_value' => array(
-      0 => array(
-        'value' => 'all',
-      ),
-    ),
-    'default_value_function' => '',
-    'default_value_php' => '',
-    'deleted' => 0,
-    'description' => 'All child terms will be shown if no terms are selected in a vocabulary.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 11,
-      ),
-    ),
-    'entity_type' => 'bean',
-    'fences_wrapper' => 'no_wrapper',
-    'field_name' => 'field_article_page_subcategories',
-    'label' => 'Child Terms',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 10,
-    ),
-  );
-
-  // Exported field_instance:
   // 'bean-article_grid_list-field_article_page_tag_expose'.
   $field_instances['bean-article_grid_list-field_article_page_tag_expose'] = array(
     'bundle' => 'article_grid_list',
@@ -385,13 +385,12 @@ function cu_article_view_toggle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('All child terms will be shown if no terms are selected in a vocabulary.');
   t('Child Terms');
   t('Filter by Audience');
   t('Filter by Category');

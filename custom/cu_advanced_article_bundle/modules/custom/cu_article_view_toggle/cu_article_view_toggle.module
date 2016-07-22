@@ -180,7 +180,7 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
       'article_audience_prefilter' => $vars['elements']['#entity']->field_article_page_audience[LANGUAGE_NONE],
       'bid' => $vars['elements']['#entity']->bid,
 
-      'subcategories' => $vars['elements']['#entity']->field_article_page_subcategories[LANGUAGE_NONE][0]['value'],
+      'child_terms' => $vars['elements']['#entity']->field_article_page_childterms[LANGUAGE_NONE][0]['value'],
     );
     if ($variables['expose_tag_filter'] || $variables['expose_category_filter'] || $variables['expose_media_filter'] || $variables['expose_audience_filter']) {
       $vars['content']['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
@@ -197,31 +197,31 @@ function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
   $show_tag_filter = $vars['expose_tag_filter'];
   $show_media_filter = $vars['expose_media_filter'];
   $show_audience_filter = $vars['expose_audience_filter'];
-  $subcategories = $vars['subcategories'] == 'all' ? 1 : 0;
+  $child_terms = $vars['child_terms'] == 'all' ? 1 : 0;
 
   // Build category filter options
   if ($show_category_filter) {
     $filters['category']['name'] = 'Category';
     $filters['category']['vocabulary'] = 'category';
-    $filters['category']['pre_filters'] = cu_article_pre_filter_map( $vars['article_category_prefilter'], 'category', $subcategories);
+    $filters['category']['pre_filters'] = cu_article_pre_filter_map( $vars['article_category_prefilter'], 'category', $child_terms);
   }
   // Build tag filter options
   if ($show_tag_filter) {
     $filters['tags']['name'] = 'Tag';
     $filters['tags']['vocabulary'] = 'tags';
-    $filters['tags']['pre_filters'] = cu_article_pre_filter_map( $vars['article_tag_prefilter'], 'tags', $subcategories);
+    $filters['tags']['pre_filters'] = cu_article_pre_filter_map( $vars['article_tag_prefilter'], 'tags', $child_terms);
   }
   // Build media filter options
   if ($show_media_filter) {
     $filters['media']['name'] = 'Media';
     $filters['media']['vocabulary'] = 'media';
-    $filters['media']['pre_filters'] = cu_article_pre_filter_map( $vars['article_media_prefilter'], 'media', $subcategories);
+    $filters['media']['pre_filters'] = cu_article_pre_filter_map( $vars['article_media_prefilter'], 'media', $child_terms);
   }
   // Build audience filter options
   if ($show_audience_filter) {
     $filters['audience']['name'] = 'Audience';
     $filters['audience']['vocabulary'] = 'syndication_audience';
-    $filters['audience']['pre_filters'] = cu_article_pre_filter_map( $vars['article_audience_prefilter'], 'syndication_audience', $subcategories);
+    $filters['audience']['pre_filters'] = cu_article_pre_filter_map( $vars['article_audience_prefilter'], 'syndication_audience', $child_terms);
   }
   // Build filters if they exist
   if (!empty($filters)) {
