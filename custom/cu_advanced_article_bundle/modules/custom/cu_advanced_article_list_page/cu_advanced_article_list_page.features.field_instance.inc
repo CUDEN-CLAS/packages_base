@@ -50,7 +50,7 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 44,
+      'weight' => 9,
     ),
   );
 
@@ -88,7 +88,7 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 37,
+      'weight' => 8,
     ),
   );
 
@@ -132,7 +132,7 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 40,
+      'weight' => 6,
     ),
   );
 
@@ -170,7 +170,51 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 33,
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-advanced_article_list_page-field_article_page_childterms'.
+  $field_instances['node-advanced_article_list_page-field_article_page_childterms'] = array(
+    'bundle' => 'advanced_article_list_page',
+    'default_value' => array(
+      0 => array(
+        'value' => 'all',
+      ),
+    ),
+    'default_value_function' => '',
+    'default_value_php' => '',
+    'deleted' => 0,
+    'description' => 'All child terms will be shown if no terms are selected in a vocabulary.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_article_page_childterms',
+    'label' => 'Child Terms',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 10,
     ),
   );
 
@@ -208,7 +252,7 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 35,
+      'weight' => 6,
     ),
   );
 
@@ -246,7 +290,7 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 36,
+      'weight' => 7,
     ),
   );
 
@@ -290,51 +334,7 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 43,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'node-advanced_article_list_page-field_article_page_subcategories'.
-  $field_instances['node-advanced_article_list_page-field_article_page_subcategories'] = array(
-    'bundle' => 'advanced_article_list_page',
-    'default_value' => array(
-      0 => array(
-        'value' => 'all',
-      ),
-    ),
-    'default_value_function' => '',
-    'default_value_php' => '',
-    'deleted' => 0,
-    'description' => 'All child terms will be shown if no terms are selected in a vocabulary.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'fences_wrapper' => 'no_wrapper',
-    'field_name' => 'field_article_page_subcategories',
-    'label' => 'Child Terms',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 38,
+      'weight' => 8,
     ),
   );
 
@@ -378,7 +378,7 @@ function cu_advanced_article_list_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 42,
+      'weight' => 7,
     ),
   );
 
