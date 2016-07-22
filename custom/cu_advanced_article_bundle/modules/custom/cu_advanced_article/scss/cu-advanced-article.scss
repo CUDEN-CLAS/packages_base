@@ -81,6 +81,12 @@ div.article-adv-content-field:last-child {
   border-bottom:1px solid #d7d7d7;
   padding-bottom: 20px;
   font-size: 110%;
+  .field-item {
+    margin-bottom: 20px;
+  }
+  div.field-item:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .field-name-field-adv-article-downloads {
