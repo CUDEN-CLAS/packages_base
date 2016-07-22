@@ -57,17 +57,57 @@ function cu_advanced_article_list_page_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__advanced_article_list_page';
   $strongarm->value = array(
-    'view_modes' => array(),
+    'view_modes' => array(
+      'teaser' => array(
+        'custom_settings' => TRUE,
+      ),
+      'full' => array(
+        'custom_settings' => FALSE,
+      ),
+      'rss' => array(
+        'custom_settings' => FALSE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
+        'custom_settings' => FALSE,
+      ),
+      'embed' => array(
+        'custom_settings' => FALSE,
+      ),
+      'feature' => array(
+        'custom_settings' => FALSE,
+      ),
+      'promo' => array(
+        'custom_settings' => FALSE,
+      ),
+      'sidebar' => array(
+        'custom_settings' => FALSE,
+      ),
+      'table' => array(
+        'custom_settings' => FALSE,
+      ),
+      'title' => array(
+        'custom_settings' => FALSE,
+      ),
+      'grid' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
+    ),
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '1',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '2',
         ),
       ),
       'display' => array(),
@@ -115,6 +155,27 @@ function cu_advanced_article_list_page_strongarm() {
   $strongarm->name = 'node_submitted_advanced_article_list_page';
   $strongarm->value = 0;
   $export['node_submitted_advanced_article_list_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_advanced_article_list_page_pattern';
+  $strongarm->value = '[node:menu-link:parents:join-path]/[node:title]';
+  $export['pathauto_node_advanced_article_list_page_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_media_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_media_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_syndication_audience_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_syndication_audience_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
