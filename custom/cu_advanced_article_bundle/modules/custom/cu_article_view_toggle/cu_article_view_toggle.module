@@ -162,12 +162,27 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
     }
     $variables = array(
       'expose_category_filter' => $vars['elements']['#entity']->field_article_page_cat_expose[LANGUAGE_NONE][0]['value'],
+
       'article_category_prefilter' => $vars['elements']['#entity']->field_article_page_category[LANGUAGE_NONE],
+
       'expose_tag_filter' => $vars['elements']['#entity']->field_article_page_tag_expose[LANGUAGE_NONE][0]['value'],
+
       'article_tag_prefilter' => $vars['elements']['#entity']->field_article_page_filter[LANGUAGE_NONE],
       'bid' => $vars['elements']['#entity']->bid,
+
+      'expose_media_filter' => $vars['elements']['#entity']->field_article_page_media_expose[LANGUAGE_NONE][0]['value'],
+
+      'article_media_prefilter' => $vars['elements']['#entity']->field_article_page_media[LANGUAGE_NONE],
+      'bid' => $vars['elements']['#entity']->bid,
+
+      'expose_audience_filter' => $vars['elements']['#entity']->field_article_page_aud_expose[LANGUAGE_NONE][0]['value'],
+
+      'article_audience_prefilter' => $vars['elements']['#entity']->field_article_page_audience[LANGUAGE_NONE],
+      'bid' => $vars['elements']['#entity']->bid,
+
+      'child_terms' => $vars['elements']['#entity']->field_article_page_childterms[LANGUAGE_NONE][0]['value'],
     );
-    if ($variables['expose_tag_filter'] || $variables['expose_category_filter']) {
+    if ($variables['expose_tag_filter'] || $variables['expose_category_filter'] || $variables['expose_media_filter'] || $variables['expose_audience_filter']) {
       $vars['content']['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
     }
   }
@@ -180,30 +195,33 @@ function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
   //$node = menu_get_object();
   $show_category_filter = $vars['expose_category_filter'];
   $show_tag_filter = $vars['expose_tag_filter'];
+  $show_media_filter = $vars['expose_media_filter'];
+  $show_audience_filter = $vars['expose_audience_filter'];
+  $child_terms = $vars['child_terms'] == 'all' ? 1 : 0;
 
-  $show_media_filter = 1;
-  $show_audience_filter = 1;
   // Build category filter options
   if ($show_category_filter) {
     $filters['category']['name'] = 'Category';
     $filters['category']['vocabulary'] = 'category';
-    $filters['category']['pre_filters'] = _cu_article_pre_filter_map( $vars['article_category_prefilter']);
+    $filters['category']['pre_filters'] = cu_article_pre_filter_map( $vars['article_category_prefilter'], 'category', $child_terms);
   }
   // Build tag filter options
   if ($show_tag_filter) {
     $filters['tags']['name'] = 'Tag';
     $filters['tags']['vocabulary'] = 'tags';
-    $filters['tags']['pre_filters'] = _cu_article_pre_filter_map( $vars['article_tag_prefilter']);
+    $filters['tags']['pre_filters'] = cu_article_pre_filter_map( $vars['article_tag_prefilter'], 'tags', $child_terms);
   }
   // Build media filter options
   if ($show_media_filter) {
     $filters['media']['name'] = 'Media';
     $filters['media']['vocabulary'] = 'media';
+    $filters['media']['pre_filters'] = cu_article_pre_filter_map( $vars['article_media_prefilter'], 'media', $child_terms);
   }
   // Build audience filter options
   if ($show_audience_filter) {
     $filters['audience']['name'] = 'Audience';
     $filters['audience']['vocabulary'] = 'syndication_audience';
+    $filters['audience']['pre_filters'] = cu_article_pre_filter_map( $vars['article_audience_prefilter'], 'syndication_audience', $child_terms);
   }
   // Build filters if they exist
   if (!empty($filters)) {

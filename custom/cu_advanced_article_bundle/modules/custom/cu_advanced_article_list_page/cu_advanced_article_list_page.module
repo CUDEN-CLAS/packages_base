@@ -114,55 +114,85 @@ function cu_advanced_article_list_page_preprocess_node(&$vars) {
       $vars['content']['error']['#weight'] = 15;
     }
     // Add exposed filter
-    $vars['content']['exposed_filter'] = drupal_get_form('cu_advanced_article_list_page_filter_form');
+    $variables = array(
+      'expose_category_filter' => $vars['field_article_page_cat_expose'][LANGUAGE_NONE][0]['value'],
+
+      'article_category_prefilter' => $vars['field_article_page_category'][LANGUAGE_NONE],
+
+      'expose_tag_filter' => $vars['field_article_page_tag_expose'][LANGUAGE_NONE][0]['value'],
+
+      'article_tag_prefilter' => $vars['field_article_page_filter'][LANGUAGE_NONE],
+
+      'expose_media_filter' => $vars['field_article_page_media_expose'][LANGUAGE_NONE][0]['value'],
+
+      'article_media_prefilter' => $vars['field_article_page_media'][LANGUAGE_NONE],
+
+      'expose_audience_filter' => $vars['field_article_page_aud_expose'][LANGUAGE_NONE][0]['value'],
+
+      'article_audience_prefilter' => $vars['field_article_page_audience'][LANGUAGE_NONE],
+
+      'child_terms' => $vars['field_article_page_childterms'][LANGUAGE_NONE][0]['value'],
+
+    );
+    $vars['content']['exposed_filter'] = drupal_get_form('cu_advanced_article_list_page_filter_form', $variables);
     $vars['content']['exposed_filter']['#weight'] = 5;
   }
 }
 
-function cu_advanced_article_list_page_filter_form($form, &$form_state) {
+function cu_advanced_article_list_page_filter_form($form, &$form_state, $vars) {
   $form = array();
+  $node = menu_get_object();
   $filters = array();
   $filter_count = 0;
   //$node = menu_get_object();
-  $show_category_filter = 1;
-  $show_tag_filter = 1;
-  $show_media_filter = 1;
-  $show_audience_filter = 1;
+  $show_category_filter = $vars['expose_category_filter'];
+  $show_tag_filter = $vars['expose_tag_filter'];
+  $show_media_filter = $vars['expose_media_filter'];
+  $show_audience_filter = $vars['expose_audience_filter'];
+  $child_terms = $vars['child_terms'] == 'all' ? 1 : 0;
 
   // Build category filter options
   if ($show_category_filter) {
     $filters['category']['name'] = 'Category';
     $filters['category']['vocabulary'] = 'category';
+    $filters['category']['pre_filters'] = cu_article_pre_filter_map( $node->field_article_page_category[LANGUAGE_NONE], 'category', $child_terms);
   }
   // Build tag filter options
   if ($show_tag_filter) {
     $filters['tags']['name'] = 'Tag';
     $filters['tags']['vocabulary'] = 'tags';
+    $filters['tags']['pre_filters'] = cu_article_pre_filter_map( $node->field_article_page_filter[LANGUAGE_NONE], 'tags', $child_terms);
   }
   // Build media filter options
   if ($show_media_filter) {
     $filters['media']['name'] = 'Media';
     $filters['media']['vocabulary'] = 'media';
+    $filters['media']['pre_filters'] = cu_article_pre_filter_map( $node->field_article_page_media[LANGUAGE_NONE], 'media', $child_terms);
   }
   // Build audience filter options
   if ($show_audience_filter) {
     $filters['audience']['name'] = 'Audience';
     $filters['audience']['vocabulary'] = 'syndication_audience';
+    $filters['audience']['pre_filters'] = cu_article_pre_filter_map( $node->field_article_page_audience[LANGUAGE_NONE], 'syndication_audience', $child_terms);
   }
   // Build filters if they exist
   if (!empty($filters)) {
     foreach ($filters as $key => $filter) {
       // Load vocabulary for filter
       $vocabulary = taxonomy_vocabulary_machine_name_load($filter['vocabulary']);
-      // Get terms for vocabulary
-      $terms = taxonomy_get_tree($vocabulary->vid);
       $options = array();
       // Add 'all' option
       $options[] = 'All';
+
+      // Get terms for vocabulary
+      $terms = taxonomy_get_tree($vocabulary->vid);
+
       // Get terms in a nested tree
       $terms = cu_article_taxonomy_treedata($terms);
+
       // Build select options from nested tree and add all option
       $options = $options + cu_article_nested_options($terms);
+
       // If pre_filters were added, only show those options
       if (!empty($filter['pre_filters'])) {
         $options = array_intersect_key($options, $filter['pre_filters']);
