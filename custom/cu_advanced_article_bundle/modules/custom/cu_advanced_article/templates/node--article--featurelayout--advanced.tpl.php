@@ -3,24 +3,12 @@
   hide($content['article_tags']);
   hide($content['field_article_categories']);
   hide($content['article_meta']);
-  if (!empty($content['field_adv_article_image'])) {
-    hide($content['field_adv_article_image']);
-  }
-  if (!empty($content['field_adv_article_video'])) {
-    hide($content['field_adv_article_video']);
-  }
-  if (!empty($content['field_adv_article_audio'])) {
-    hide($content['field_adv_article_audio']);
-  }
-  if (!empty($content['field_adv_article_quote'])) {
-    hide($content['field_adv_article_quote']);
-  }
-  if (!empty($content['field_adv_article_gallery'])) {
-    hide($content['field_adv_article_gallery']);
-  }
-  if (!empty($content['field_adv_article_highlights'])) {
-    hide($content['field_adv_article_highlights']);
-  }
+  hide($content['field_adv_article_image']);
+  hide($content['field_adv_article_video']);
+  hide($content['field_adv_article_audio']);
+  hide($content['field_adv_article_quote']);
+  hide($content['field_adv_article_gallery']);
+  hide($content['field_adv_article_highlights']);
 ?>
 
 <?php $tag = isset($heading_tag['#tag']) ? $heading_tag['#tag'] : 'h2'; ?>
