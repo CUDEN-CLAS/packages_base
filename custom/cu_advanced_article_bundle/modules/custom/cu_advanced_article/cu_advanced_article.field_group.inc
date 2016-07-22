@@ -42,7 +42,7 @@ function cu_advanced_article_field_group_info() {
         'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $field_groups['group_advanced|node|article|form'] = $field_group;
