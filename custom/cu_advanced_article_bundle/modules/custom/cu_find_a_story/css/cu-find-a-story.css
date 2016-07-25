@@ -5,6 +5,7 @@
 .view-find-a-story .views-exposed-form label { font-size: 85%; }
 .view-find-a-story .views-exposed-form .views-exposed-widget .form-submit { margin-top: 2.6em; }
 .view-find-a-story .views-exposed-form .views-exposed-widget { padding-bottom: 10px; }
+.view-find-a-story .views-exposed-form .views-exposed-widget .description { display: none; }
 .view-find-a-story #edit-combine-wrapper { padding-bottom: 0; }
 .view-find-a-story #edit-combine-wrapper input.form-text { background-color: #fff; }
 @media screen and (max-width: 768px) { .view-find-a-story #edit-combine-wrapper { float: none; margin-right: -1em; }
