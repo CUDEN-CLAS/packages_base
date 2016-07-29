@@ -5,3 +5,6 @@ version = 7.x-1.0
 package = CU-LiveChat
 
 files[] = cu_livechat_bundle.context.inc
+
+bundle_cache_clear = 1
+bundle_context_clear = 1
