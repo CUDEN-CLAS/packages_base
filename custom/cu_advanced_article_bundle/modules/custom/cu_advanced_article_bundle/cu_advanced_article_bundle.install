@@ -9,7 +9,7 @@ function cu_advanced_article_bundle_update_7000() {
 }
 
 function cu_advanced_article_bundle_module_weight() {
-  $modules_to_update = array('cu_article_advanced_article');
+  $modules_to_update = array('cu_advanced_article');
 
   foreach ($modules_to_update as $module) {
     // Set the weight to 1
