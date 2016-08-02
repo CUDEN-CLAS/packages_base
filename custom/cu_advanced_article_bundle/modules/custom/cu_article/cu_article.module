@@ -261,7 +261,7 @@ function cu_article_preprocess_entity(&$vars) {
     else {
       $type = $vars['elements']['#bundle'];
       _cu_article_bean_null_results($vars, $type);
-      $vars['content'] = '';
+      $vars['content'] = array();
     }
 
   }
@@ -350,7 +350,7 @@ function cu_article_preprocess_entity(&$vars) {
     else {
       $type = $vars['elements']['#bundle'];
       _cu_article_bean_null_results($vars, $type);
-      $vars['content'] = '';
+      $vars['content'] = array();
     }
 
   }
@@ -458,7 +458,7 @@ function cu_article_preprocess_entity(&$vars) {
     else {
       $type = $vars['elements']['#bundle'];
       _cu_article_bean_null_results($vars, $type);
-      $vars['content'] = '';
+      $vars['content'] = array();
     }
   }
 
@@ -1175,6 +1175,8 @@ function cu_article_block_info() {
  * A block that shows all articles that have a byline related to a person node
  */
 function cu_article_block_view($delta = '') {
+  $block = array();
+
   switch ($delta) {
     case 'articles_by_person':
       // Get current node id
@@ -1325,7 +1327,7 @@ function cu_article_taxonomy_form_validate($form, &$form_state) {
   $depth = count($parents) + count($children) + 1;
   if ($depth > $limit) {
     $error_link = l('This change', NULL, array('external' => TRUE, 'fragment' => 'edit-parent'));
-    // form_set_error('parent', t('!change has caused the taxonomy to exceed its maximum depth of 4 levels. The resulting tree would have a depth of !depth', array('!change' => $error_link, '!depth' => $depth)));
+    //form_set_error('parent', t('!change has caused the taxonomy to exceed its maximum depth of 4 levels. The resulting tree would have a depth of !depth.', array('!change' => $error_link, '!depth' => $depth)));
   }
 }
 
@@ -1352,8 +1354,7 @@ function cu_article_list_filter_form($form, &$form_state) {
   $node = menu_get_object();
   $show_category_filter = $node->field_article_page_cat_expose[LANGUAGE_NONE][0]['value'];
   $show_tag_filter = $node->field_article_page_tag_expose[LANGUAGE_NONE][0]['value'];
-  $child_terms = $node->field_article_page_childterms[LANGUAGE_NONE][0]['value'];
-
+  $child_terms = $node->field_article_page_childterms[LANGUAGE_NONE][0]['value'] == 'all' ? 1 : 0;
   // Build category filter options
   if ($show_category_filter) {
     $filters['category']['name'] = 'Category';
@@ -1380,7 +1381,6 @@ function cu_article_list_filter_form($form, &$form_state) {
       $terms = cu_article_taxonomy_treedata($terms);
       // Build select options from nested tree and add all option
       $options = $options + cu_article_nested_options($terms);
-
       // If pre_filters were added, only show those options
       if (!empty($filter['pre_filters'])) {
         $options = array_intersect_key($options, $filter['pre_filters']);
@@ -1430,7 +1430,6 @@ function cu_article_pre_filter_map($filter_array, $vocabulary = NULL, $include_c
         }
       }
     }
-
     return $filter_tids;
   }
 }
@@ -1533,7 +1532,7 @@ function cu_article_nested_options($terms) {
         $options[$term['data']->tid] = $indent . ' ' . $term['data']->name;
         if (!empty($term['children'])) {
           $nested = cu_article_nested_options($term['children']);
-          $options = array_merge($options, $nested);
+          $options = $options + $nested;
         }
       }
     }
@@ -1550,7 +1549,7 @@ function cu_article_nested_options($terms) {
       $options[$term['data']->tid] = $indent . ' ' . $term['data']->name;
       if (!empty($term['children'])) {
         $nested = cu_article_nested_options($term['children']);
-        $options = array_merge($options, $nested);
+        $options = $options + $nested;
       }
     }
   }
@@ -1561,7 +1560,7 @@ function cu_article_nested_options($terms) {
  * Returns - to denote children
  */
 function cu_article_term_depth($depth = 0) {
-  $indent = 0;
+  $indent = '';
   for ($i = 0; $i < $depth; $i++) {
     $indent = $indent . '-';
   }
