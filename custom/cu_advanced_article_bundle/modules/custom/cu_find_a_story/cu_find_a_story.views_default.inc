@@ -32,8 +32,8 @@ function cu_find_a_story_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
+  $handler->display->display_options['row_plugin'] = 'node';
+  $handler->display->display_options['row_options']['links'] = FALSE;
   /* Field: Content: Thumbnail */
   $handler->display->display_options['fields']['field_article_thumbnail']['id'] = 'field_article_thumbnail';
   $handler->display->display_options['fields']['field_article_thumbnail']['table'] = 'field_data_field_article_thumbnail';
