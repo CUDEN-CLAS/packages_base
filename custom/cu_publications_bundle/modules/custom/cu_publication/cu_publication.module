@@ -480,7 +480,10 @@ function cu_publication_block_view($delta = '') {
           }
         }
         // Get tags from current article
-        $tag_terms = $node->field_tags[LANGUAGE_NONE];
+        $tag_terms = array();
+        if (!empty($node->field_tags)) {
+          $tag_terms = $node->field_tags[LANGUAGE_NONE];
+        }
         $tags = array();
         if (!empty($tag_terms)) {
           foreach ($tag_terms as $tag_term) {
