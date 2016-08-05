@@ -14,9 +14,29 @@
     display: inline-block;
     margin-bottom: 0px;
   }
-
-
 }
+.block-section-background-black,
+.block-section-background-dark_gray {
+  .article-grid-list-filter {
+    background-color: #444;
+  }
+  .article-toggle-navigation a:link,
+  .article-toggle-navigation a:visited {
+    color:#ccc;
+  }
+  .article-toggle-navigation a.active {
+    color:#fff;
+  }
+  a.button-ghost:link,
+  a.button-ghost:visited {
+    border-color: #cfb87c;
+    color:#fff;
+  }
+  a.button-ghost:hover {
+    border-color: #007bc8;
+  }
+}
+
 .article-toggle-navigation {
   overflow: hidden;
   text-align: left;
@@ -24,8 +44,6 @@
   display: inline-block;
   margin-right:10px;
   margin-bottom: 4px;
-
-
 }
 .has-exposed-filter .article-toggle-navigation {
   position:absolute;
