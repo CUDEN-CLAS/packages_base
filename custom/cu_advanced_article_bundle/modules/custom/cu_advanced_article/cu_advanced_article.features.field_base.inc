@@ -304,6 +304,32 @@ function cu_advanced_article_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_adv_article_media'.
+  $field_bases['field_adv_article_media'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_adv_article_media',
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'media',
+          'parent' => 0,
+        ),
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
   // Exported field_base: 'field_adv_article_priority'.
   $field_bases['field_adv_article_priority'] = array(
     'active' => 1,

@@ -220,7 +220,7 @@ function cu_advanced_article_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 18,
+      'weight' => 24,
     ),
   );
 
@@ -295,7 +295,7 @@ function cu_advanced_article_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 11,
+      'weight' => 10,
     ),
   );
 
@@ -427,7 +427,7 @@ function cu_advanced_article_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'fences_wrapper' => 'div_div_div',
+    'fences_wrapper' => 'ul',
     'field_name' => 'field_adv_article_downloads',
     'label' => 'Downloads',
     'required' => 0,
@@ -451,7 +451,7 @@ function cu_advanced_article_field_default_field_instances() {
         ),
       ),
       'type' => 'inline_entity_form',
-      'weight' => 21,
+      'weight' => 27,
     ),
   );
 
@@ -526,7 +526,7 @@ function cu_advanced_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 19,
+      'weight' => 25,
     ),
   );
 
@@ -601,7 +601,7 @@ function cu_advanced_article_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 12,
+      'weight' => 11,
     ),
   );
 
@@ -752,7 +752,7 @@ function cu_advanced_article_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 20,
+      'weight' => 26,
     ),
   );
 
@@ -883,7 +883,7 @@ function cu_advanced_article_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'field_collection_embed',
-      'weight' => 15,
+      'weight' => 21,
     ),
   );
 
@@ -958,7 +958,7 @@ function cu_advanced_article_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 8,
+      'weight' => 7,
     ),
   );
 
@@ -1037,6 +1037,74 @@ function cu_advanced_article_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-article-field_adv_article_media'.
+  $field_instances['node-article-field_adv_article_media'] = array(
+    'bundle' => 'article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Choose which media types are included in this article.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 31,
+      ),
+      'embed' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'feature' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'grid' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'sidebar' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'title' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_adv_article_media',
+    'label' => 'Media',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 20,
+    ),
+  );
+
   // Exported field_instance: 'node-article-field_adv_article_priority'.
   $field_instances['node-article-field_adv_article_priority'] = array(
     'bundle' => 'article',
@@ -1102,7 +1170,7 @@ function cu_advanced_article_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 22,
+      'weight' => 28,
     ),
   );
 
@@ -1178,7 +1246,7 @@ function cu_advanced_article_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 17,
+      'weight' => 23,
     ),
   );
 
@@ -1253,7 +1321,7 @@ function cu_advanced_article_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -1546,7 +1614,7 @@ function cu_advanced_article_field_default_field_instances() {
       'module' => 'video_embed_field',
       'settings' => array(),
       'type' => 'video_embed_field_video',
-      'weight' => 16,
+      'weight' => 22,
     ),
   );
 
@@ -1621,7 +1689,7 @@ function cu_advanced_article_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -1917,6 +1985,7 @@ function cu_advanced_article_field_default_field_instances() {
   t('Audio Display');
   t('Audio Weight');
   t('Caption');
+  t('Choose which media types are included in this article.');
   t('Downloads');
   t('Gallery Display');
   t('Gallery Weight');
@@ -1927,6 +1996,7 @@ function cu_advanced_article_field_default_field_instances() {
   t('Legacy Audience');
   t('Legacy College/School');
   t('Legacy Topic');
+  t('Media');
   t('Photo Gallery');
   t('Priority');
   t('Quote Display');

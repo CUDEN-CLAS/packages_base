@@ -104,17 +104,20 @@ function cu_advanced_article_preprocess_node(&$vars) {
       // Get order of advanced fields, only add fields that are set to display
       $fields = _cu_advanced_article_display_fields();
       $weights = array();
+      // Container for the fields that will be displayed
+      $fields_to_display = array();
       foreach ($fields as $field) {
         $field_weight = $field . '_w';
         $field_display = $field . '_d';
         if ($vars[$field_display][LANGUAGE_NONE][0]['value']) {
           $weights[$field] = $vars[$field_weight][LANGUAGE_NONE][0]['value'];
+          $fields_to_display[$field] = $field;
         }
 
       }
+      // Put content in order
       asort($weights);
       $vars['advanced_content_order'] = $weights;
-
       // Get the priority field
       $priority_field = $vars['field_adv_article_priority'][LANGUAGE_NONE][0]['value'];
       // Get the first item of the priority field
@@ -125,9 +128,16 @@ function cu_advanced_article_preprocess_node(&$vars) {
       // Check to see if article sidebar is needed
       $sidebar = 0;
       foreach ($fields as $field) {
+        // Check to see if field is empty
         if (!empty($vars['content'][$field])) {
-          $sidebar = 1;
+          // Field must have items and be set to display
+          if (
+            (!empty($vars['content'][$field][0]) || !empty($vars['content'][$field][1])) && isset($fields_to_display[$field])
+            ) {
+            $sidebar = 1;
+          }
         }
+
       }
       if ($sidebar && !$feature) {
         $vars['theme_hook_suggestions'][] = 'node__article__advanced_sidebar';
@@ -145,7 +155,7 @@ function cu_advanced_article_preprocess_node(&$vars) {
 }
 
 function _cu_advanced_article_error_msg($embed) {
-  drupal_set_message($embed . ' is not a valid soundcloud URL');
+  // drupal_set_message($embed . ' is not a valid soundcloud URL');
 }
 //article_node_form
 function cu_advanced_article_form_article_node_form_alter(&$form, &$form_state, $form_id) {
