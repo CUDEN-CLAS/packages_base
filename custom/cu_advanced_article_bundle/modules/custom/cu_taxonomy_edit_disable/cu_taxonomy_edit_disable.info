@@ -3,3 +3,5 @@ description = Disable editing of vocabularies and terms
 core = 7.x
 version = 7.x-1.0
 package = cu_advanced_article_bundle
+
+dependencies[] = taxonomy_autocomplete_permission
