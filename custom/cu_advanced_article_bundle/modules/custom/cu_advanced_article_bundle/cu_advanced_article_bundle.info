@@ -4,3 +4,5 @@ core = 7.x
 
 dependencies[] = cu_advanced_article
 dependencies[] = cu_article_view_toggle
+
+bundle_contrib_packages = taxonomy_autocomplete_permission
