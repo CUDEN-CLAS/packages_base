@@ -3,6 +3,12 @@
 .article-grid-list-filter { position: relative; background-color: #f2f2f2; padding: 10px 10px 0; margin-bottom: 20px; }
 .article-grid-list-filter .article-list-filter { padding-left: 92px; background-color: transparent; padding: 0; padding-right: 100px; display: inline-block; margin-bottom: 0px; }
 
+.block-section-background-black .article-grid-list-filter, .block-section-background-dark_gray .article-grid-list-filter { background-color: #444; }
+.block-section-background-black .article-toggle-navigation a:link, .block-section-background-black .article-toggle-navigation a:visited, .block-section-background-dark_gray .article-toggle-navigation a:link, .block-section-background-dark_gray .article-toggle-navigation a:visited { color: #ccc; }
+.block-section-background-black .article-toggle-navigation a.active, .block-section-background-dark_gray .article-toggle-navigation a.active { color: #fff; }
+.block-section-background-black a.button-ghost:link, .block-section-background-black a.button-ghost:visited, .block-section-background-dark_gray a.button-ghost:link, .block-section-background-dark_gray a.button-ghost:visited { border-color: #cfb87c; color: #fff; }
+.block-section-background-black a.button-ghost:hover, .block-section-background-dark_gray a.button-ghost:hover { border-color: #007bc8; }
+
 .article-toggle-navigation { overflow: hidden; text-align: left; display: inline-block; margin-right: 10px; margin-bottom: 4px; }
 
 .has-exposed-filter .article-toggle-navigation { position: absolute; top: 10px; right: 0; }

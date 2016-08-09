@@ -4,9 +4,6 @@
 [submodule "custom/alumni"]
 	path = custom/alumni
 	url = git@github.com:CuBoulder/express_alumni.git
-[submodule "custom/homepage"]
-	path = custom/homepage
-	url = git@github.com:CuBoulder/express_homepage.git
 [submodule "custom/chancellor"]
 	path = custom/chancellor
 	url = git@github.com:CuBoulder/express_chancellor.git
