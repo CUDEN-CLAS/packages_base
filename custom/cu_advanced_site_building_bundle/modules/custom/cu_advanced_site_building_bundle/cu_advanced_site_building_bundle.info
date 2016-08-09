@@ -4,4 +4,4 @@ core = 7.x
 package = CU-Advanced Site Building
 project = cu_advanced_site_building_bundle
 
-bundle_contrib_packages = backup_migrate,feeds
+bundle_contrib_packages = backup_migrate,feeds,path_redirect_import
