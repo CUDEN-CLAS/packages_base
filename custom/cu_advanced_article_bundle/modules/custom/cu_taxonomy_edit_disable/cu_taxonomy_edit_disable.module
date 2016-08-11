@@ -120,9 +120,11 @@ function cu_taxonomy_edit_disable_secure_permissions($role) {
   $permissions['authenticated user'] = array();
   $permissions['administrator'] = cu_taxonomy_edit_disable_create_permissions($all = TRUE);
   $permissions['administrator'][] = 'disable taxonomy edit';
+  $permissions['administrator'][] = 'edit disabled taxonomies';
   $permissions['content_editor'] = cu_taxonomy_edit_disable_create_permissions();
   $permissions['developer'] = cu_taxonomy_edit_disable_create_permissions($all = TRUE);
   $permissions['developer'][] = 'disable taxonomy edit';
+  $permissions['developer'][] = 'edit disabled taxonomies';
   $permissions['site_owner'] = cu_taxonomy_edit_disable_create_permissions();
 
   if (isset($permissions[$role])) {
