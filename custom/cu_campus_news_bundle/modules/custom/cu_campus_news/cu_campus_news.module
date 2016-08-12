@@ -25,9 +25,9 @@ function cu_campus_news_config_form($form, &$form_state) {
   $form['cu_campus_news_url'] = array(
     '#type' => 'textfield',
     '#title' => 'URL of Campus News Site',
-    '#default_value' => variable_get('cu_campus_news_url', 'http://www.colorado.edu/news'),
+    '#default_value' => variable_get('cu_campus_news_url', 'http://www.colorado.edu/today'),
     '#required' => TRUE,
-    '#description' => t('Full URL of campus news web site. i.e. http://www.colorado.edu/news'),
+    '#description' => t('Full URL of campus news web site. i.e. http://www.colorado.edu/today'),
   );
 
   $form['cu_campus_news_unit_path'] = array(
@@ -85,7 +85,7 @@ function cu_campus_news_config_form($form, &$form_state) {
  * Submit function to reset configurations to default values.
  */
 function cu_campus_news_reset() {
-  variable_set('cu_campus_news_url', 'http://www.colorado.edu/news');
+  variable_set('cu_campus_news_url', 'http://www.colorado.edu/today');
   variable_set('cu_campus_news_unit_path', 'syndicate/article/options/syndication_unit');
   variable_set('cu_campus_news_audience_path', 'syndicate/article/options/syndication_audience');
   variable_set('cu_campus_news_category_path', 'syndicate/article/options/category');
@@ -99,7 +99,7 @@ function cu_campus_news_reset() {
  * Allowed values function for unit options.
  */
 function cu_campus_news_unit_values() {
-  $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/news') . '/' . variable_get('cu_campus_news_unit_path', 'syndicate/article/options/syndication_unit');
+  $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/today') . '/' . variable_get('cu_campus_news_unit_path', 'syndicate/article/options/syndication_unit');
 
   $response = drupal_http_request($end_point);
   if ($response->code == '200') {
@@ -117,7 +117,7 @@ function cu_campus_news_unit_values() {
  * Allowed values function for audience options.
  */
 function cu_campus_news_audience_values() {
-  $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/news') . '/' . variable_get('cu_campus_news_audience_path', 'syndicate/article/options/syndication_audience');
+  $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/today') . '/' . variable_get('cu_campus_news_audience_path', 'syndicate/article/options/syndication_audience');
 
   $response = drupal_http_request($end_point);
   if ($response->code == '200') {
@@ -134,7 +134,7 @@ function cu_campus_news_audience_values() {
  * Allowed values function for category options.
  */
 function cu_campus_news_category_values() {
-  $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/news') . '/' . variable_get('cu_campus_news_category_path', 'syndicate/article/options/category');
+  $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/today') . '/' . variable_get('cu_campus_news_category_path', 'syndicate/article/options/category');
 
   $response = drupal_http_request($end_point);
   if ($response->code == '200') {
@@ -165,7 +165,7 @@ function cu_campus_news_preprocess_entity(&$vars) {
     // dpm($vars['bean']);
     // create cache ID
     $cid = 'campus_news:' . $vars['bean']->bid;
-    $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/news') . '/' . variable_get('cu_campus_news_syndication', 'syndicate/article');
+    $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/today') . '/' . variable_get('cu_campus_news_syndication', 'syndicate/article');
 
     // Create query parameters
     $query = array();
@@ -262,7 +262,7 @@ function cu_campus_news_preprocess_entity(&$vars) {
 
       // Add link to CU Boulder Today
       $link_text = variable_get('cu_campus_news_link_text', 'Read more at CU Boulder Today');
-      $link_url = variable_get('cu_campus_news_url', 'http://www.colorado.edu/news') . '/' . variable_get('cu_campus_news_link_path', 'syndicate/article/read');
+      $link_url = variable_get('cu_campus_news_url', 'http://www.colorado.edu/today') . '/' . variable_get('cu_campus_news_link_path', 'syndicate/article/read');
 
       if (!empty($query['updated'])) {
         unset($query['updated']);
@@ -348,7 +348,7 @@ function cu_campus_news_form_bean_form_alter(&$form, &$form_state, $form_id) {
     // Add submit function for clearing cached results
     $form['#submit'][] = 'cu_campus_news_cache_clear';
     // Check to see if syndication is disabled, show message, disable save
-    $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/news') . '/' . variable_get('cu_campus_news_syndication', 'syndicate/article');
+    $end_point = variable_get('cu_campus_news_url', 'http://www.colorado.edu/today') . '/' . variable_get('cu_campus_news_syndication', 'syndicate/article');
     $query['updated'] = 1;
     $end_point_updated = url($end_point, array('query' => $query));
     $response = drupal_http_request($end_point_updated);

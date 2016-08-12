@@ -1,6 +1,6 @@
 name = Campus News
 core = 7.x
-package = Features
+package = CU Campus News
 dependencies[] = bean_admin_ui
 dependencies[] = ctools
 dependencies[] = features
