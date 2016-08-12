@@ -2,6 +2,6 @@
   <?php if($thumbnail): ?>
     <?php print $thumbnail; ?>
   <?php endif; ?>
-  <?php print $title; ?>
+  <h3><?php print $title; ?></h3>
   <div class="article-grid-summary"><?php print $body; ?></div>
 </div>
