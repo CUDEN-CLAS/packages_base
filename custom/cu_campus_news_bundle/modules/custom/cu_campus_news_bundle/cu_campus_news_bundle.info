@@ -1,0 +1,4 @@
+name = Campus News Bundle
+core = 7.x
+package = CU Campus News
+dependencies[] = cu_campus_news
