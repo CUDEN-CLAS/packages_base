@@ -384,7 +384,7 @@ function cu_campus_news_permission() {
  *
  * Adding permissions for newsletter
  */
-function cu_campus_news_view_toggle_secure_permissions($role) {
+function cu_campus_news_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
       'view any campus_news bean',
