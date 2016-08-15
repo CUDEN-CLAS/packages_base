@@ -423,3 +423,23 @@ function cu_campus_news_secure_permissions($role) {
     return $permissions[$role];
   }
 }
+
+function cu_campus_news_medium($timestamp) {
+  // AP date style
+  $post_date_raw = new DateTime();
+  $post_date_raw->setTimestamp($timestamp);
+  $post_date_month = $post_date_raw->format('F');
+  $post_date_day_year = $post_date_raw->format('j, Y');
+
+  if($post_date_month == "September"){
+      $ap_date_sept = "Sept. " . $post_date_day_year;
+      $variables['ap_date_cu_medium_date'] = $ap_date_sept;
+  } elseif (strlen($post_date_month) > 5){
+      $ap_date_short = substr($post_date_month, 0,3) . "." . " " . $post_date_day_year;
+      $variables['ap_date_cu_medium_date'] = $ap_date_short;
+  } else {
+      $ap_date_long = $post_date_month . " " . $post_date_day_year;
+      $variables['ap_date_cu_medium_date'] = $ap_date_long;
+  }
+  return $variables['ap_date_cu_medium_date'];
+}
