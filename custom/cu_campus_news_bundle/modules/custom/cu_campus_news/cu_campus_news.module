@@ -145,9 +145,9 @@ function cu_campus_news_category_values() {
       $terms2[$key] = (object) $term;
     }
     // Get terms in a nested tree
-    $terms = cu_article_taxonomy_treedata($terms2);
+    $terms = cu_campus_news_taxonomy_treedata($terms2);
     // Build select options from nested tree and add all option
-    $options = cu_article_nested_options($terms);
+    $options = cu_campus_news_nested_options($terms);
 
     return $options;
   }
@@ -422,4 +422,123 @@ function cu_campus_news_secure_permissions($role) {
   if (isset($permissions[$role])) {
     return $permissions[$role];
   }
+}
+
+function cu_campus_news_medium($timestamp) {
+  // AP date style
+  $post_date_raw = new DateTime();
+  $post_date_raw->setTimestamp($timestamp);
+  $post_date_month = $post_date_raw->format('F');
+  $post_date_day_year = $post_date_raw->format('j, Y');
+
+  if($post_date_month == "September"){
+      $ap_date_sept = "Sept. " . $post_date_day_year;
+      $variables['ap_date_cu_medium_date'] = $ap_date_sept;
+  } elseif (strlen($post_date_month) > 5){
+      $ap_date_short = substr($post_date_month, 0,3) . "." . " " . $post_date_day_year;
+      $variables['ap_date_cu_medium_date'] = $ap_date_short;
+  } else {
+      $ap_date_long = $post_date_month . " " . $post_date_day_year;
+      $variables['ap_date_cu_medium_date'] = $ap_date_long;
+  }
+  return $variables['ap_date_cu_medium_date'];
+}
+
+/**
+ * Build a nested array from a taxonomy tree.
+ */
+function &cu_campus_news_taxonomy_treedata(&$nvocs) {
+	//this function will take a flat vocabulary tree and turn it into a multi-tiered array
+	//the return array will simply contain an array of pointers rather then physical objects
+
+	$map = array();
+
+	//go through the tree and find the lowest depth aswell as all available depth levels to scan
+	$startdepth = false;
+	$depthlist = array();
+	foreach($nvocs as $vocindex => &$vocitem) {
+		if ($startdepth === false || $startdepth > $vocitem->depth) {
+			//new start depth found
+			$startdepth = $vocitem->depth;
+		}
+
+		//add this item to the speciffic depth level
+		$depthlist[$vocitem->depth][$vocitem->tid] = &$vocitem;
+	}
+
+	//sort the depthlist so lowest is first
+	ksort($depthlist);
+
+	//scan all depth levels found
+	$lastdepth = null;
+	foreach($depthlist as $depthlevel => &$depths) {
+		//check for first depth (root) level
+		$currentdepthdata = array();
+
+		if ($depthlevel == $startdepth) {
+			//add root items to the map
+			foreach($depths as $itemindex => &$item) {
+				$mapindex = count($map);
+				$map[$mapindex] = array("data" => &$item,"children" => array());
+				$currentdepthdata[$itemindex] = &$map[$mapindex];
+			}
+		} else {
+			//scan through all items within this depth
+			foreach($depths as $itemindex => &$item) {
+				//find a matching "map" in teh last depth to assign the item too
+				foreach($item->parents as $parentindex) {
+					$mapindex = count($lastdepthdata[$parentindex]["children"]);
+					$lastdepthdata[$parentindex]["children"][$mapindex] = array("data" => &$item,"children" => array());
+					$currentdepthdata[$itemindex] = &$lastdepthdata[$parentindex]["children"][$mapindex];
+				}
+			}
+		}
+
+		$lastdepthdata = $currentdepthdata;
+	}
+
+	return $map;
+}
+
+/**
+ * Build a nested select options list
+ */
+function cu_campus_news_nested_options($terms) {
+  $options = array();
+  uasort($terms, 'cu_campus_news_sort');
+  foreach($terms as $term) {
+    // Use depth to add - to denote children terms
+    $indent = cu_campus_news_term_depth($term['data']->depth);
+
+    $options[$term['data']->tid] = $indent . ' ' . $term['data']->name;
+    if (!empty($term['children'])) {
+      $nested = cu_campus_news_nested_options($term['children']);
+      $options = $options + $nested;
+    }
+
+  }
+  return $options;
+}
+
+/**
+ * Returns - to denote children
+ */
+function cu_campus_news_term_depth($depth = 0) {
+  $indent = '';
+  for ($i = 0; $i < $depth; $i++) {
+    $indent = $indent . '-';
+  }
+  return $indent;
+}
+
+/**
+ * Sort function for terms array
+ */
+function cu_campus_news_sort($a, $b) {
+  $a = $a['data']->name;
+  $b = $b['data']->name;
+  if ($a == $b) {
+      return 0;
+  }
+  return ($a < $b) ? -1 : 1;
 }

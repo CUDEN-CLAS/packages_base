@@ -8,9 +8,7 @@
     <<?php print $tag; ?>><?php print $title; ?></<?php print $tag; ?>>
     <p class="date">
       <?php
-        if (function_exists('cu_date_formats_medium')) {
-          print cu_date_formats_medium($created);
-        }
+        print cu_campus_news_medium($created);
       ?>
     </p>
     <div class="article-summary"><?php print $body; ?></div>
