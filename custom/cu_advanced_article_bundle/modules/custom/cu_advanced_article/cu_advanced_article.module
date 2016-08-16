@@ -125,6 +125,10 @@ function cu_advanced_article_preprocess_node(&$vars) {
       // Remove the first item of the priority field so it doesn't print twice
       unset($vars['content'][$priority_field][0]);
 
+      // Set image style for priority image
+      $priority_key = key($vars['content']['priority']['entity']['field_collection_item']);
+      $vars['content']['priority']['entity']['field_collection_item'][$priority_key]['field_adv_article_fc_image'][0]['#image_style'] = 'advanced_article_hero';
+
       // Check to see if article sidebar is needed
       $sidebar = 0;
       foreach ($fields as $field) {
@@ -330,4 +334,37 @@ function _cu_advanced_article_display_priority_options() {
     'field_adv_article_gallery' => 'Photo Gallery',
   );
   return $options;
+}
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function cu_advanced_article_image_default_styles() {
+  $styles = array();
+
+  // Exported image style: square.
+  $styles['advanced_article_hero'] = array(
+    'name' => 'Advanced Article Hero',
+    'label' => 'Advanced Article Hero',
+    'effects' => array(
+      11 => array(
+        'label' => 'Focal Point Scale And Crop',
+        'help' => 'Scale and crop based on data provided by <em>Focal Point</em>.',
+        'effect callback' => 'focal_point_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'focal_point',
+        'name' => 'focal_point_scale_and_crop',
+        'data' => array(
+          'width' => 1500,
+          'height' => 600,
+          'upscale' => 1,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  return $styles;
 }
