@@ -127,7 +127,9 @@ function cu_advanced_article_preprocess_node(&$vars) {
 
       // Set image style for priority image
       $priority_key = key($vars['content']['priority']['entity']['field_collection_item']);
-      $vars['content']['priority']['entity']['field_collection_item'][$priority_key]['field_adv_article_fc_image'][0]['#image_style'] = 'advanced_article_hero';
+      if (isset($vars['content']['priority']['entity']['field_collection_item'][$priority_key]['field_adv_article_fc_image'])) {
+        $vars['content']['priority']['entity']['field_collection_item'][$priority_key]['field_adv_article_fc_image'][0]['#image_style'] = 'advanced_article_hero';
+      }
 
       // Check to see if article sidebar is needed
       $sidebar = 0;
