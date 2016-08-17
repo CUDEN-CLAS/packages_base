@@ -219,6 +219,17 @@ function cu_article_syndicate_node_insert($node) {
   }
 }
 
+/**
+ * Implements hook_node_delete().
+ *
+ * Clear the syndicate cache when an article node is deleted.
+ */
+function cu_article_syndicate_node_delete($node) {
+  if ($node->type == 'article') {
+    cache_clear_all('cu_article_syndicate:', 'cache', TRUE);
+  }
+}
+
 function cu_article_syndicate_results() {
   drupal_set_breadcrumb(array(l('Home', '<front>')));
   $output = array();

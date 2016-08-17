@@ -22,3 +22,27 @@ function cu_find_a_story_theme_registry_alter(&$theme_registry) {
     }
   }
 }
+
+function cu_find_a_story_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-find-a-story-page') {
+    // Remove hidden terms from category filter
+    foreach ($form['term_node_tid_depth']['#options'] as $key => $option) {
+      //dpm($option);
+      if (!empty($option->option)) {
+        $tid = current(array_keys($option->option));
+        if (!_cu_find_a_story_term_display($tid)) {
+          unset($form['term_node_tid_depth']['#options'][$key]);
+        }
+      }
+    }
+  }
+}
+
+function _cu_find_a_story_term_display($tid) {
+  $term = taxonomy_term_load($tid);
+  if (!empty($term->field_category_display) && $term->field_category_display[LANGUAGE_NONE][0]['value'] == 'hide') {
+    return FALSE;
+  }
+  return TRUE;
+}

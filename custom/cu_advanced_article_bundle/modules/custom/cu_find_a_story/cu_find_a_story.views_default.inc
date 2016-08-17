@@ -32,8 +32,8 @@ function cu_find_a_story_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
+  $handler->display->display_options['row_plugin'] = 'node';
+  $handler->display->display_options['row_options']['links'] = FALSE;
   /* Field: Content: Thumbnail */
   $handler->display->display_options['fields']['field_article_thumbnail']['id'] = 'field_article_thumbnail';
   $handler->display->display_options['fields']['field_article_thumbnail']['table'] = 'field_data_field_article_thumbnail';
@@ -176,30 +176,6 @@ function cu_find_a_story_views_default_views() {
   $handler->display->display_options['filters']['term_node_tid_depth']['vocabulary'] = 'category';
   $handler->display->display_options['filters']['term_node_tid_depth']['hierarchy'] = 1;
   $handler->display->display_options['filters']['term_node_tid_depth']['depth'] = '10';
-  /* Filter criterion: Tags Filter */
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['id'] = 'term_node_tid_depth_1';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['table'] = 'node';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['field'] = 'term_node_tid_depth';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['ui_name'] = 'Tags Filter';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['group'] = 4;
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['operator_id'] = 'term_node_tid_depth_1_op';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['label'] = 'Tags';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['operator'] = 'term_node_tid_depth_1_op';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['identifier'] = 'term_node_tid_depth_1';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    6 => 0,
-    4 => 0,
-    7 => 0,
-    3 => 0,
-    5 => 0,
-  );
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['type'] = 'select';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['vocabulary'] = 'tags';
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['hierarchy'] = 1;
-  $handler->display->display_options['filters']['term_node_tid_depth_1']['depth'] = '10';
   /* Filter criterion: Date: Date (node) */
   $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['table'] = 'node';
