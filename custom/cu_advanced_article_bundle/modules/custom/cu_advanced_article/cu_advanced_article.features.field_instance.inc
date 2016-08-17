@@ -63,7 +63,7 @@ function cu_advanced_article_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => 'hero',
+          'image_style' => 'medium',
         ),
         'type' => 'image',
         'weight' => 0,
