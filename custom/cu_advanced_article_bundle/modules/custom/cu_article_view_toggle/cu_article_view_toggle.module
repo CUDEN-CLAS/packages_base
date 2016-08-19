@@ -120,6 +120,43 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
       $query->condition('audience.field_adv_article_synd_aud_tid', $terms, 'in');
     }
 
+    // Exclude category
+    if (!empty($vars['elements']['#entity']->field_article_exclude_category)) {
+      $terms = array();
+      foreach ($vars['elements']['#entity']->field_article_exclude_category[LANGUAGE_NONE] as $key=>$value) {
+        $tid = $value['tid'];
+        $terms[$tid] = $tid;
+        // Look up children terms and add them to array
+        $v = taxonomy_vocabulary_machine_name_load('category');
+        $children = taxonomy_get_tree($v->vid, $tid);
+        foreach ($children as $child) {
+          $terms[$child->tid] = $child->tid;
+        }
+      }
+      $query->join("field_data_field_article_categories", "excats", "n.nid = excats.entity_id");
+      $query->fields('excats', array('field_article_categories_tid'));
+      $query->condition('excats.field_article_categories_tid', $terms, 'NOT IN');
+    }
+
+
+    // Exclude tags
+    if (!empty($vars['elements']['#entity']->field_article_exclude_tag)) {
+      $terms = array();
+      foreach ($vars['elements']['#entity']->field_article_exclude_tag[LANGUAGE_NONE] as $key=>$value) {
+        $tid = $value['tid'];
+        $terms[$tid] = $tid;
+        // Look up children terms and add them to array
+        $v = taxonomy_vocabulary_machine_name_load('tags');
+        $children = taxonomy_get_tree($v->vid, $tid);
+        foreach ($children as $child) {
+          $terms[$child->tid] = $child->tid;
+        }
+      }
+      $query->join("field_data_field_tags", "extags", "n.nid = extags.entity_id");
+      $query->fields('extags', array('field_tags_tid'));
+      $query->condition('extags.field_tags_tid', $terms, 'NOT IN');
+    }
+
     $query->distinct();
     $query->groupBy('n.nid');
     // Display the newest first.
@@ -181,6 +218,10 @@ function cu_article_view_toggle_preprocess_entity(&$vars) {
       'bid' => $vars['elements']['#entity']->bid,
 
       'child_terms' => $vars['elements']['#entity']->field_article_page_childterms[LANGUAGE_NONE][0]['value'],
+
+      'exclude_category' => $vars['elements']['#entity']->field_article_exclude_category[LANGUAGE_NONE],
+
+      'exclude_tag' => $vars['elements']['#entity']->field_article_exclude_tag[LANGUAGE_NONE],
     );
     if ($variables['expose_tag_filter'] || $variables['expose_category_filter'] || $variables['expose_media_filter'] || $variables['expose_audience_filter']) {
       $vars['content']['exposed_filter'] = drupal_get_form('cu_article_view_toggle_filter_form', $variables);
@@ -198,18 +239,23 @@ function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
   $show_media_filter = $vars['expose_media_filter'];
   $show_audience_filter = $vars['expose_audience_filter'];
   $child_terms = $vars['child_terms'] == 'all' ? 1 : 0;
-
   // Build category filter options
   if ($show_category_filter) {
     $filters['category']['name'] = 'Category';
     $filters['category']['vocabulary'] = 'category';
     $filters['category']['pre_filters'] = cu_article_pre_filter_map( $vars['article_category_prefilter'], 'category', $child_terms);
+    if (!empty($vars['exclude_category'])) {
+      $filters['category']['exclude'] = cu_article_pre_filter_map( $vars['exclude_category'], 'category', $child_terms);
+    }
   }
   // Build tag filter options
   if ($show_tag_filter) {
     $filters['tags']['name'] = 'Tag';
     $filters['tags']['vocabulary'] = 'tags';
     $filters['tags']['pre_filters'] = cu_article_pre_filter_map( $vars['article_tag_prefilter'], 'tags', $child_terms);
+    if (!empty($vars['exclude_tag'])) {
+      $filters['tag']['exclude'] = cu_article_pre_filter_map( $vars['exclude_tag'], 'tag', $child_terms);
+    }
   }
   // Build media filter options
   if ($show_media_filter) {
@@ -241,6 +287,10 @@ function cu_article_view_toggle_filter_form($form, &$form_state, $vars) {
       // If pre_filters were added, only show those options
       if (!empty($filter['pre_filters'])) {
         $options = array_intersect_key($options, $filter['pre_filters']);
+      }
+      if (!empty($filter['exclude'])) {
+        unset($filter['exclude'][0]);
+        $options = array_diff_key($options, $filter['exclude']);
       }
 
       // Only show filter if there are more than 2 choices (all + 2)
