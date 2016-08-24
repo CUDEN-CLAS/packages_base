@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * Preprocess node.
+ */
+function instaar_bundle_preprocess_node(&$vars) {
+  if ($vars['node']->type == 'instaar_abstract') {
+
+    // Append Source link to end of body.
+    $sources = array(
+      'BioOne' => 'http://www.bioone.org/perlserv/?request=get-abstract&doi=',
+      'MetaPress' => 'http://instaar.metapress.com/content/',
+      'JStor' => 'http://links.jstor.org/sici?sici=',
+    );
+    $append = array();
+
+    // If DOI field is populated, add link to bioone.
+    if (isset($vars['field_instaar_doi'][0]['value'])) {
+      $doi_value = $vars['field_instaar_doi'][0]['value'];
+      $blink = 'http://www.bioone.org/doi/abs/' . $doi_value;
+      $append[] = l('BioOne', $blink);
+    }
+
+    // If jstor link is populated, add link to jstor.
+    if (isset($vars['field_instaar_jstor'][0]['value'])) {
+      // Two different types of jstor links, old and new.
+      $jstor_value = $vars['field_instaar_jstor'][0]['value'];
+      $substr = substr($jstor_value, 0, 5);
+      if ($substr == '0004-' || $substr == '1523-') {
+        // Old style link.
+        $jlink = 'http://links.jstor.org/sici?sici=' . $jstor_value;
+      }
+      else {
+        // New style 'stable' link.
+        $jlink = 'http://www.jstor.org/stable/' . $jstor_value;
+      }
+      $append[] = l('JStor', $jlink);
+    }
+
+    // If DOI field is populated, add link to pinnacle.
+    if (isset($vars['field_instaar_doi'][0]['value'])) {
+      $doi_value = $vars['field_instaar_doi'][0]['value'];
+      $plink = 'http://aaarjournal.org/doi/abs/' . $doi_value;
+      $append[] = l('Pinnacle', $plink);
+    }
+
+    // Page to and from fields.
+    if (isset($vars['field_instaar_page_from'][0]['value'])) {
+      $pages[] = $vars['field_instaar_page_from'][0]['value'];
+    }
+    if (isset($vars['field_instaar_page_to'][0]['value'])) {
+      $pages[] = $vars['field_instaar_page_to'][0]['value'];
+    }
+
+    // Hide everything we've already rendered.
+    $vars['content']['field_instaar_doi']['#access'] = FALSE;
+    $vars['content']['field_instaar_jstor']['#access'] = FALSE;
+    $vars['content']['field_instaar_page_from']['#access'] = FALSE;
+    $vars['content']['field_instaar_page_to']['#access'] = FALSE;
+
+  }
+}
+
+/**
+ * Preprocess page.
+ */
+function instaar_bundle_preprocess_page(&$vars) {
+  if (!empty($vars['node'])) {
+    $node = $vars['node'];
+    switch ($vars['node']->type) {
+      case 'instaar_abstract':
+        if (isset($node->field_instaar_long_title)) {
+          // Set title to long title field on abstract nodes.
+          $vars['title'] = $node->field_instaar_long_title[0]['safe_value'];
+        }
+        if (isset($node->field_instaar_open_access) && $node->field_instaar_open_access[LANGUAGE_NONE][0]['value'] == 1) {
+          // If open access, append to title.
+          $vars['title'] = check_plain($node->title) . ' [Open Access]';
+        }
+        if (isset($node->field_instaar_issue_reference)) {
+          // Add issue reference to breadcrumbs.
+          // @todo make volume and issue separate crumbs.
+          $issue_reference_link = l($node->field_instaar_issue_reference[LANGUAGE_NONE][0]['entity']->title, 'node/'.$node->field_instaar_issue_reference[LANGUAGE_NONE][0]['target_id']);
+          $crumbs = array();
+          $crumbs[] = l('Home', '<front');
+          $crumbs[] = $issue_reference_link;
+          drupal_set_breadcrumb($crumbs);
+        }
+        break;
+    }
+  }
+}
