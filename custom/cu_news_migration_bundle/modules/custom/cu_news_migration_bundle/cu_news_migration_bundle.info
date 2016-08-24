@@ -1,7 +1,0 @@
-name = News Migration Bundle
-description = Imports and exports for News
-core = 7.x
-package = CU-News
-
-bundle_contrib_packages = feeds,feeds_tamper,views_data_export
-
