@@ -37,3 +37,6 @@
 [submodule "custom/cu_homepage_bundle"]
 	path = custom/cu_homepage_bundle
 	url = git@github.com:CuBoulder/express_homepage.git
+[submodule "custom/cu_newsletter_theme"]
+	path = custom/cu_newsletter_theme
+	url = git@github.com:CuBoulder/cu_newsletter_theme.git
