@@ -52,3 +52,30 @@
 [submodule "custom/cu_publications_bundle"]
 	path = custom/cu_publications_bundle
 	url = git@github.com:CuBoulder/cu_publications_bundle.git
+[submodule "custom/cu_news_migration_bundle"]
+	path = custom/cu_news_migration_bundle
+	url = git@github.com:CuBoulder/cu_news_migration_bundle.git
+[submodule "custom/cu_livestream_bundle"]
+	path = custom/cu_livestream_bundle
+	url = git@github.com:CuBoulder/cu_livestream_bundle.git
+[submodule "custom/cu_livechat_bundle"]
+	path = custom/cu_livechat_bundle
+	url = git@github.com:CuBoulder/cu_livechat_bundle.git
+[submodule "custom/cu_editor_note_bundle"]
+	path = custom/cu_editor_note_bundle
+	url = git@github.com:CuBoulder/cu_editor_note_bundle.git
+[submodule "custom/cu_demo_bundle"]
+	path = custom/cu_demo_bundle
+	url = git@github.com:CuBoulder/cu_demo_bundle.git
+[submodule "custom/cu_campus_news_bundle"]
+	path = custom/cu_campus_news_bundle
+	url = git@github.com:CuBoulder/cu_campus_news_bundle.git
+[submodule "custom/cu_advanced_article_bundle"]
+	path = custom/cu_advanced_article_bundle
+	url = git@github.com:CuBoulder/cu_advanced_article_bundle.git
+[submodule "custom/cu_advanced_site_building_bundle"]
+	path = custom/cu_advanced_site_building_bundle
+	url = git@github.com:CuBoulder/cu_advanced_site_building_bundle.git
+[submodule "custom/cu_alumni_bundle"]
+	path = custom/cu_alumni_bundle
+	url = git@github.com:CuBoulder/cu_alumni_bundle.git
