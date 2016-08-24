@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the CU News Export feature.
- */
-
-include_once('cu_news_export.features.inc');
