@@ -37,9 +37,9 @@
 [submodule "custom/cu_homepage_bundle"]
 	path = custom/cu_homepage_bundle
 	url = git@github.com:CuBoulder/express_homepage.git
-[submodule "custom/cu_storify_bundle"]
-	path = custom/cu_storify_bundle
-	url = git@github.com:CuBoulder/cu_storify_bundle.git
 [submodule "custom/cu_vcr_bundle"]
 	path = custom/cu_vcr_bundle
 	url = git@github.com:CuBoulder/cu_vcr_bundle.git
+[submodule "custom/cu_storify_bundle"]
+	path = custom/cu_storify_bundle
+	url = git@github.com:CuBoulder/cu_storify_bundle.git
