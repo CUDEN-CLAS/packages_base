@@ -1,9 +1,0 @@
-<?php
-
-/**
- * Implements hook_install().
- */
-function cu_connect_bundle_install() {
-  variable_set('sfweb2lead_webform_url', 'https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8');
-}
-
