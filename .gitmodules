@@ -79,3 +79,6 @@
 [submodule "custom/cu_alumni_bundle"]
 	path = custom/cu_alumni_bundle
 	url = git@github.com:CuBoulder/cu_alumni_bundle.git
+[submodule "custom/cu_chemistry_titles_bundle"]
+	path = custom/cu_chemistry_titles_bundle
+	url = git@github.com:CuBoulder/cu_chemistry_titles_bundle.git
