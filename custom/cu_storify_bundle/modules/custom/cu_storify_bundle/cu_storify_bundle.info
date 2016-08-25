@@ -1,5 +1,0 @@
-name = Storify Bundle
-description = Adds support for embedding content from storify.com
-core = 7.x
-
-dependencies[] = cu_storify_embed
