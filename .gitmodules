@@ -82,3 +82,6 @@
 [submodule "custom/cu_chemistry_titles_bundle"]
 	path = custom/cu_chemistry_titles_bundle
 	url = git@github.com:CuBoulder/cu_chemistry_titles_bundle.git
+[submodule "custom/cu_custom_logo_bundle"]
+	path = custom/cu_custom_logo_bundle
+	url = git@github.com:CuBoulder/cu_custom_logo_bundle.git
