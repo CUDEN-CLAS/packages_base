@@ -1,2 +1,5 @@
 ## IntelliJ files ##
 *.idea
+
+## Dumb Mac OS metadata files ##
+*.DS_Store
